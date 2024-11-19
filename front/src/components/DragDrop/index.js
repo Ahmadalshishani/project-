@@ -51,7 +51,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
         borderRadius: "10px",
         padding: "20px",
         maxWidth: "690px",
-        minWidth:"320px",
+        
         backgroundColor: "d5d5d5",
         transition: "background-color 0.3s",
         cursor: "pointer",

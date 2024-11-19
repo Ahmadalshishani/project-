@@ -1,105 +1,93 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "./style.css";
-import image from '../../pictures/2@2x 1.png'
-import axios from "axios";
-
-import { AuthContext } from "../../contexts/authContent";
-
-import { useDispatch,useSelector } from "react-redux";
-  import {  setLogin,
-    setUserId,
-    setLogout,}from "../reducers/auth/index"
-//===============================================================
+import React from "react";
+import image from "../../pictures/2@2x 1.png";
 
 const Login = () => {
- const {/* isLoggedIn,*/ saveToken } = useContext(AuthContext);
-  const history = useNavigate();
-  const dispatch =useDispatch();
-
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [password, setPassword] = useState("");
-  const [status, setStatus] = useState(false);
-const {token,userid,isLoggedIn}=useSelector((state)=>{
-  return{
-token:state.auth.token
-,userid:state.auth.userid,
-isLoggedIn:state.auth.isLoggedIn
-  }
-})
-  //===============================================================
-
-  const login = async (e) => {
-    e.preventDefault();
-    try {
-      const result = await axios.post("http://localhost:5000/users/login", {
-        email,
-        password,
-      });
-      if (result.data) {
-        setMessage("");
-        localStorage.setItem("token", result.data.token);
-        localStorage.setItem("userId", result.data.userId);
-        // saveToken(result.data.token, result.data.userId);
-        dispatch(setLogin(result.data.token),setUserId(result.data.userId))
-      } else throw Error;
-    } catch (error) {
-      if (error.response && error.response.data) {
-        return setMessage(error.response.data.message);
-      }
-      setMessage("Error happened while Login, please try again");
-    }
-  };
-
-  //===============================================================
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      history("/dashboard");
-    }
-  });
-
-  //===============================================================
-
   return (
-    <>
-    <div className="page">
-      <div className="Form">
-        <h1 className="welcome">Welcome!</h1>
-        <p className="Title">Log in to streamline QA and improve file comparisons.:</p>
-        <form onSubmit={login}>
-          <br />
-        <h4>Email address</h4>
-          <input
-            type="email"
-            placeholder="Enter your email address"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <h4>Password</h4>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br />
+    <div
+      style={{ display: "flex", justifyContent: "space-between", gap: "40px" }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          width: "100%",
+          justifyContent: "center",
+        }}
+      >
+        <div>
+          <p style={{ margin: "0px", fontSize: "32px", fontWeight: "500" }}>
+            Welcome!
+          </p>
+          <p>Log in to streamline QA and improve file comparisons.</p>
+          <div>
+            <p>Email address</p>
+            <input
+              placeholder="Enter your email address"
+              style={{
+                maxWidth: "404px",
+                width: "100%",
+                height: "35px",
+                borderRadius: "6px",
+                paddingLeft: "10px",
+              }}
+            />
+          </div>
+          <div>
+            <p>Email address</p>
+            <input
+              placeholder="Enter your password"
+              style={{
+                maxWidth: "404px",
+                width: "100%",
+                height: "35px",
+                borderRadius: "6px",
+                paddingLeft: "10px",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <div style={{ display: "flex" }}>
+              <input type="checkbox" />
+              <p>Remember me</p>
+            </div>
+            <p>forgot password?</p>
+          </div>
           <button
-            onClick={(e) => {
-              login(e);
+            style={{
+              width: "100%",
+              height: "32px",
+              backgroundColor: "#F56666",
+              color: "white",
+              border: "0px",
+              borderRadius: "10px",
             }}
           >
             Login
           </button>
-        </form>
-
-        {status
-          ? message && <div className="SuccessMessage">{message}</div>
-          : message && <div className="ErrorMessage">{message}</div>}
+          <p>
+            Don’t have an account?{" "}
+            <span
+              style={{ color: "#0F3DDE", textAlign: "center", width: "100%" }}
+            >
+              Sign Up
+            </span>{" "}
+          </p>
+        </div>
       </div>
-      <div className="image"><img src={image}/></div>
-      </div>      
-    </>
+      <div style={{ width: "100%" }}>
+        <img
+          src={image}
+          style={{ height: "100vh", width: "100%", objectFit: "fill" }}
+        />
+      </div>
+    </div>
   );
 };
 
