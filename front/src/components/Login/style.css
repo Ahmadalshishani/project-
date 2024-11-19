@@ -1,0 +1,23 @@
+.page{
+    display: flex;
+    justify-content: space-between;
+
+}
+.image{
+    max-height: 1024;
+    max-width: 782px;
+    
+}
+.Form{
+    display: flex;
+    flex-direction: column;
+ 
+    margin-top: 317px;
+    margin-left: 175px;
+   
+}
+.welcome{
+margin: 0%;
+gap: 10px;
+
+}
