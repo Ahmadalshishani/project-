@@ -51,7 +51,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
         borderRadius: "10px",
         padding: "20px",
         maxWidth: "690px",
-        
+        marginTop:"33px",
         backgroundColor: "d5d5d5",
         transition: "background-color 0.3s",
         cursor: "pointer",
@@ -72,6 +72,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
             fontSize: "16px",
             cursor: "pointer",
           }}
+          onClick={handleParagraphClick}
         >
           Selected File: {selectedFile.name}
         </p>

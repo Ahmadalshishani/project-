@@ -24,8 +24,7 @@
 .head {
   font-size: 40px;
   font-weight: 600;
-  margin-left: 49px;
-  margin-top: 30px;
+ 
   color: #2b1b4c;
   text-decoration: underline #f9c95f 3px;
   text-underline-offset: 10px;
@@ -48,13 +47,16 @@
   padding: 12px;
 }
 .submit-button {
-  max-width: 443px;
-  height: 49px;
-  margin-left: 49px;
   border-radius: 12px;
   font-size: 24px;
   font-weight: 700;
   color: white;
+  max-width: 443px;
+  width: 90%;
+  height: 49px;
+  border: 0px;
+  color: white;
+  border-radius: 6px;
 }
 .original {
   width: 100%;

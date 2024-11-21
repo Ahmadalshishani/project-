@@ -1,19 +1,16 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
-import Dashboard from "./components/dashboard";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router/router";
+import Main from "./layout/Main";
 
 
 //===============================================================
 
 const App = () => {
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </div>
+ 
+    <RouterProvider router={router}><Main></Main></RouterProvider>
+   
   );
 };
 

@@ -1,18 +1,34 @@
 import React, { useContext, useState } from "react";
 import "./style.css";
 import Logo from "../../pictures/Group 8.png";
-import { AuthContext } from "../../contexts/authContent";
 import DragDrop from "../DragDrop/index";
+import { useDispatch, useSelector } from "react-redux";
+import { setCompare } from "../reducers/compare";
+import { useNavigate } from "react-router-dom";
+
+const baseUrl = "http://194.242.57.64:5000";
 
 const Dashboard = () => {
-  const { token } = useContext(AuthContext);
+  const navigate = useNavigate()
+ 
+  const dispatch = useDispatch();
+  const username = localStorage.getItem("userName");
+  const useremail = localStorage.getItem("userEmail");
+  const password = "123456789";
+  const basicAuth = `Basic ${btoa(`${useremail}:${password}`)}`;
 
+ 
   // State to manage files
   const [originalFile, setOriginalFile] = useState(null);
   const [designFile, setDesignFile] = useState(null);
-
+  const { compare } = useSelector((state) => {
+    return {
+      compare: state.compare.comparing,
+    };
+  });
+console.log(compare);
   // API endpoint
-  const API_URL = "https://example.com/api/upload";
+  const baseUrl = "http://194.242.57.64:5000";
 
   // Handle file uploads
   const handleFileUpload = (file, type) => {
@@ -31,22 +47,24 @@ const Dashboard = () => {
     }
 
     const formData = new FormData();
-    formData.append("original", originalFile);
-    formData.append("design", designFile);
+    formData.append("old_doc", originalFile);
+    formData.append("new_doc", designFile);
+
+    console.log(useremail);
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${baseUrl}/compare`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`, // Include token if required
+          Authorization: basicAuth,
         },
         body: formData,
       });
-
       if (response.ok) {
         const result = await response.json();
-        alert("Files uploaded successfully!");
+        dispatch(setCompare(result));
         console.log(result);
+        navigate("/compare");
       } else {
         alert("Failed to upload files.");
       }
@@ -59,10 +77,11 @@ const Dashboard = () => {
   return (
     <>
       <header className="header">
-        <p>Welcome, User 👋</p>
+        <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />
       </header>
       <div style={{ maxWidth: "100rem", margin: "auto", width: "90%" }}>
+        <h1 className="head">Click. Compare. Share with Confidence!</h1>
         <div
           style={{
             display: "grid",
@@ -75,7 +94,10 @@ const Dashboard = () => {
               Upload Original File
             </h3>
             <hr />
-            <DragDrop />
+            <DragDrop
+              onFileUpload={(file) => handleFileUpload(file, "original")}
+              style={{ margin: "33px", backgroundcolor: "black" }}
+            />
             <p>Formats accepted are .ppx and .pdf</p>
             <div>
               <p style={{ margin: "0px", color: "#0083A0" }}>
@@ -117,13 +139,14 @@ const Dashboard = () => {
               style={{
                 fontSize: "20px",
                 fontWeight: "600",
-                marginBottom: "33px",
               }}
             >
-              Upload Original File
+              Upload Design File
             </h3>
             <hr style={{ borderColor: "#E3E3E3" }} />
-            <DragDrop />
+            <DragDrop
+              onFileUpload={(file) => handleFileUpload(file, "design")}
+            />
             <p>Formats accepted are .ppx and .pdf</p>
             <div>
               <p style={{ margin: "0px", color: "#946600" }}>
@@ -150,15 +173,10 @@ const Dashboard = () => {
           sharing
         </p>
         <button
-          style={{
-            maxWidth: "443px",
-            width: "90%",
-            height: "49px",
-            backgroundColor: "#F56666",
-            border: "0px",
-            color: "white",
-            borderRadius: "6px",
-          }}
+          className={`submit-button ${
+            originalFile && designFile ? "active" : "inactive"
+          }`}
+          onClick={handleSubmit}
         >
           Compare files now
         </button>
@@ -168,47 +186,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-{
-  /* <header className="header">
-<p>Welcome, User 👋</p>
-<img src={Logo} alt="Company Logo" />
-</header>
-<main className="inner">
-<h1 className="head">Click. Compare. Share with Confidence!</h1>
-<section className="body">
-  <div className="original">
-    <h2 className="pargraph">Upload Original File</h2>
-    <DragDrop
-      onFileUpload={(file) => handleFileUpload(file, "original")}
-    />
-    <p className="format-pargraph">
-      Formats accepted are .ppx and .pdf
-    </p>
-  </div>
-  <div style={{width:"10px"}}></div>
-  <div className="updated">
-    <h2 className="pargraph">Upload Design File</h2>
-    <DragDrop
-      onFileUpload={(file) => handleFileUpload(file, "design")}
-    />
-    <p className="format-pargraph">
-      Formats accepted are .ppx and .pdf
-    </p>
-  </div>
-</section>
-<p className="description">
-  Disclaimer: We use a closed-system AI-powered technology to check
-  files. All information remains secure and private, with no external
-  sharing
-</p>
-<button
-  className={`submit-button ${
-    originalFile && designFile ? "active" : "inactive"
-  }`}
-  onClick={handleSubmit}
->
-  Compare files now
-</button>
-</main> */
-}
