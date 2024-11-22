@@ -17,7 +17,13 @@ function Compares() {
     localStorage.getItem("userName") || sessionStorage.getItem("userName");
   console.log("compare page", compare);
   const [popupData, setPopupData] = useState(null);
-
+  const disArray = [
+    { text: "Double Spacing", color: "#f9c95f" },
+    { text: "Content Error", color: "#4ddcfb" },
+    { text: "Formatting Issues (Example: Punctuation)", color: "#4ef4a8" },
+    { text: "Bullet Points Inconsistencies", color: "#805af9" },
+    { text: "Uppercase/Lowercase Discrepancies", color: "#f56666" },
+  ];
   const colorMap = {
     1: "#4ddcfb",
     2: "#4ef4a8",
@@ -25,13 +31,13 @@ function Compares() {
     4: "#805af9",
     5: "#f56666",
   };
-  const errorType ={
-    1:"Content error",
-2:"formatting issues",
-3:"Double spacing",
-4:"Bullet points",
-5:"Uppercase/Lowercase Discrepancies",
-  }
+  const errorType = {
+    1: "Content error",
+    2: "formatting issues",
+    3: "Double spacing",
+    4: "Bullet points",
+    5: "Uppercase/Lowercase Discrepancies",
+  };
   const handleBack = () => {
     dispatch(deleteCompare());
     navigate("/");
@@ -252,16 +258,18 @@ function Compares() {
                           popupData.charIndex === charIndex && (
                             <div
                               style={{
+                                borderRadius: "15px",
+                                padding: "10px 10px",
                                 position: "absolute",
                                 top: "-50px",
-                                left: "0",
+                                left: "-100px",
                                 backgroundColor: "#2b1b4c",
-                              
                                 zIndex: "99999",
                                 color: "white",
+                                width: "200px",
                               }}
                             >
-                              <p> {errorType[newMasks[index]?.[charIndex]]}</p>
+                              {errorType[newMasks[index]?.[charIndex]]}
                             </div>
                           )}
                         {char}
@@ -455,83 +463,27 @@ function Compares() {
                     transition: "height 5s",
                   }}
                 >
-                  <p style={{ display: "flex" }}>
-                    <span
-                      class="dot"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "#f9c95f",
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        marginRight: "2px",
-                        marginLeft: "5px",
-                      }}
-                    >
-                      {" "}
-                    </span>
-                    Double Spacing
-                  </p>
-                  <p style={{ display: "flex" }}>
-                    <span
-                      class="dot"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "#4ddcfb",
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        marginRight: "2px",
-                        marginLeft: "5px",
-                      }}
-                    ></span>
-                    Content Error
-                  </p>
-                  <p style={{ display: "flex" }}>
-                    <span
-                      class="dot"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "#4ef4a8",
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        marginRight: "2px",
-                        marginLeft: "5px",
-                      }}
-                    ></span>
-                    Formatting Issues (Example: Punctuation)
-                  </p>
-                  <p style={{ display: "flex" }}>
-                    <span
-                      class="dot"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "#805af9",
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        marginRight: "2px",
-                        marginLeft: "5px",
-                      }}
-                    ></span>
-                    Bullet Points Inconsistencies
-                  </p>
-                  <p style={{ display: "flex" }}>
-                    <span
-                      class="dot"
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        backgroundColor: "#f56666",
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        marginRight: "2px",
-                        marginLeft: "5px",
-                      }}
-                    ></span>
-                    Uppercase/Lowercase Discrepancies
-                  </p>
+                  {disArray.map((element) => {
+                    const { color, text } = element;
+                    return (
+                      <p style={{ display: "flex" }}>
+                        <span
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            backgroundColor: color,
+                            borderRadius: "50%",
+                            display: "inline-block",
+                            marginRight: "2px",
+                            marginLeft: "5px",
+                          }}
+                        >
+                          {" "}
+                        </span>
+                        {text}
+                      </p>
+                    );
+                  })}
                 </div>
               )}
             </div>
