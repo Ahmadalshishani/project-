@@ -42,11 +42,13 @@ const dispatch=useDispatch()
           localStorage.setItem("userEmail", response.data.email);
           localStorage.setItem("userCompany", response.data.company);
           localStorage.setItem("userPhone", response.data.phone);
+          localStorage.setItem("password",password)
         }else{
           sessionStorage.setItem("userName", response.data.name);
           sessionStorage.setItem("userEmail", response.data.email);
           sessionStorage.setItem("userCompany", response.data.company);
           sessionStorage.setItem("userPhone", response.data.phone);
+          sessionStorage.setItem("password",password)
         }
        
        

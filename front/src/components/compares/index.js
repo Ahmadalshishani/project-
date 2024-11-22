@@ -11,10 +11,12 @@ function Compares() {
   const { compare } = useSelector((state) => ({
     compare: state.compare.comparing,
   }));
-  const [dis,setDis]=useState(false)
+  const [dis, setDis] = useState(false);
 
-  const username = localStorage.getItem("userName") || sessionStorage.getItem("userName");
+  const username =
+    localStorage.getItem("userName") || sessionStorage.getItem("userName");
   console.log("compare page", compare);
+  const [popupData, setPopupData] = useState(null);
 
   const colorMap = {
     1: "#4ddcfb",
@@ -23,16 +25,23 @@ function Compares() {
     4: "#805af9",
     5: "#f56666",
   };
+  const errorType ={
+    1:"Content error",
+2:"formatting issues",
+3:"Double spacing",
+4:"Bullet points",
+5:"Uppercase/Lowercase Discrepancies",
+  }
   const handleBack = () => {
     dispatch(deleteCompare());
     navigate("/");
   };
-  
-const handleBox = ()=>{
-  console.log(0);
-setDis(!dis)
-console.log(dis);
-}
+
+  const handleBox = () => {
+    console.log(0);
+    setDis(!dis);
+    console.log(dis);
+  };
 
   const parseMask = (mask) => {
     const parsedMask = {};
@@ -51,12 +60,27 @@ console.log(dis);
     item.old_mask ? parseMask(item.old_mask) : {}
   );
 
+  const handleCharacterClick = (sentenceIndex, charIndex, char) => {
+    const value = newMasks[sentenceIndex]?.[charIndex];
+    if (value) {
+      setPopupData({
+        sentenceIndex,
+        charIndex,
+        char,
+        value,
+      });
+      console.log("full", newMasks[sentenceIndex][charIndex]);
+    } else {
+      setPopupData(null);
+    }
+  };
+
   console.log("Parsed New Masks:", newMasks);
   console.log("Parsed Old Masks:", oldMasks);
 
   return (
     <>
-    {!compare && <Navigate to="/"/>}
+      {!compare && <Navigate to="/" />}
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />
@@ -109,16 +133,15 @@ console.log(dis);
             maxWidth: "1088",
             width: "80%",
             borderTop: "0.5px solid #8b8b8b",
-    
-            display:"flex",
-            flexDirection:"column",
-            alignItems:"inherit"
+
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "inherit",
           }}
         >
           <div
             style={{
               display: "flex",
-          
             }}
           >
             <div
@@ -179,297 +202,339 @@ console.log(dis);
               </h1>
             </div>
           </div>
-          <div className="box" style={{maxWidth:"1200px",position:"relative"}}>
-          {compare?.map((element, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent:"stretch",
-           
-                
-              }}
-            >
-              {/* Old File Mapping */}
+          <div className="box" style={{ maxWidth: "1200px" }}>
+            {compare?.map((element, index) => (
               <div
+                key={index}
                 style={{
-                  maxWidth: "450px",
-                  width: "90%",
-                  textAlign: "center",
-                  borderBottom: "0.5px solid #8b8b8b",
-                  borderRight: "0.5px solid #8b8b8b",
-                  paddingBottom: "52px",
-                  paddingTop: "50px",
+                  display: "flex",
+                  justifyContent: "stretch",
                 }}
               >
-                {" "}
+                {/* Old File Mapping */}
                 <div
-                  className="old"
                   style={{
-                    fontFamily: "inter",
-                    fontWeight: "700",
-                    fontSize: "24px",
+                    maxWidth: "450px",
+                    width: "90%",
+                    textAlign: "center",
+                    borderBottom: "0.5px solid #8b8b8b",
+                    borderRight: "0.5px solid #8b8b8b",
+                    paddingBottom: "52px",
+                    paddingTop: "50px",
                   }}
                 >
-                  {element.old.split("").map((char, charIndex) => (
-                    <span
-                      key={charIndex}
-                      style={{
-                        backgroundColor:
-                          colorMap[newMasks[index]?.[charIndex]] || "white",
-                          cursor: newMasks[index]?.[charIndex]? "pointer" : "default"
-                      }}
-                    >
-                      {char}
-                    </span>
-                  ))}
+                  {" "}
+                  <div
+                    className="old"
+                    style={{
+                      fontFamily: "inter",
+                      fontWeight: "700",
+                      fontSize: "24px",
+                    }}
+                  >
+                    {element.old.split("").map((char, charIndex) => (
+                      <span
+                        key={charIndex}
+                        onPointerOver={() =>
+                          handleCharacterClick(index, charIndex, char)
+                        }
+                        style={{
+                          position: "relative",
+                          backgroundColor:
+                            colorMap[newMasks[index]?.[charIndex]] || "white",
+                          cursor: newMasks[index]?.[charIndex]
+                            ? "pointer"
+                            : "default",
+                        }}
+                      >
+                        {popupData &&
+                          popupData.sentenceIndex === index &&
+                          popupData.charIndex === charIndex && (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "-50px",
+                                left: "0",
+                                backgroundColor: "#2b1b4c",
+                              
+                                zIndex: "99999",
+                                color: "white",
+                              }}
+                            >
+                              <p> {errorType[newMasks[index]?.[charIndex]]}</p>
+                            </div>
+                          )}
+                        {char}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div
-                style={{
-                  maxWidth: "93px",
-                  width: "90%",
-                  textAlign: "center",
-                  borderBottom: "0.5px solid #8b8b8b",
-                  borderRight: "0.5px solid #8b8b8b",
-                  paddingBottom: "52px",
-                  paddingTop: "50px",
-                }}
-              >
-                {" "}
                 <div
-                  className="oldPage"
                   style={{
                     maxWidth: "93px",
                     width: "90%",
                     textAlign: "center",
-                    fontFamily: "inter",
-                    fontWeight: "500",
-                    fontSize: "36px",
+                    borderBottom: "0.5px solid #8b8b8b",
+                    borderRight: "0.5px solid #8b8b8b",
+                    paddingBottom: "52px",
+                    paddingTop: "50px",
                   }}
                 >
-                  {element.old_number}
+                  {" "}
+                  <div
+                    className="oldPage"
+                    style={{
+                      maxWidth: "93px",
+                      width: "90%",
+                      textAlign: "center",
+                      fontFamily: "inter",
+                      fontWeight: "500",
+                      fontSize: "36px",
+                    }}
+                  >
+                    {element.old_number}
+                  </div>
                 </div>
-              </div>
-              <div
-                style={{
-                  maxWidth: "93px",
-                  width: "90%",
-                  textAlign: "center",
-                  borderBottom: "0.5px solid #8b8b8b",
-                  borderRight: "0.5px solid #8b8b8b",
-                  paddingBottom: "52px",
-                  paddingTop: "50px",
-                }}
-              >
-                {" "}
                 <div
-                  className="newPage"
                   style={{
+                    maxWidth: "93px",
+                    width: "90%",
                     textAlign: "center",
-                    fontFamily: "inter",
-                    fontWeight: "500",
-                    fontSize: "36px",
+                    borderBottom: "0.5px solid #8b8b8b",
+                    borderRight: "0.5px solid #8b8b8b",
+                    paddingBottom: "52px",
+                    paddingTop: "50px",
                   }}
                 >
-                  {element.new_number}
+                  {" "}
+                  <div
+                    className="newPage"
+                    style={{
+                      textAlign: "center",
+                      fontFamily: "inter",
+                      fontWeight: "500",
+                      fontSize: "36px",
+                    }}
+                  >
+                    {element.new_number}
+                  </div>
+                </div>
+                {/* New File Mapping */}
+                <div
+                  style={{
+                    maxWidth: "450px",
+                    width: "90%",
+                    textAlign: "center",
+                    borderBottom: "0.5px solid #8b8b8b",
+                    paddingBottom: "52px",
+                    paddingTop: "50px",
+                  }}
+                >
+                  {" "}
+                  <div
+                    className="new"
+                    style={{
+                      fontFamily: "inter",
+                      fontWeight: "700",
+                      fontSize: "24px",
+                    }}
+                  >
+                    {element.new.split("").map((char, charIndex) => (
+                      <span
+                        key={charIndex}
+                        style={{
+                          backgroundColor:
+                            colorMap[newMasks[index]?.[charIndex]] || "white",
+                        }}
+                      >
+                        {char}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-              {/* New File Mapping */}
+            ))}
+            {/**tool legend */}
+
+            <div
+              className="item"
+              style={
+                dis
+                  ? {
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      padding: "0px",
+                      maxWidth: "1088px",
+                      width: "100%",
+                      position: "sticky",
+                      bottom: "0px",
+                      left: "0",
+                    }
+                  : {
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      padding: "0px",
+                      maxWidth: "1088px",
+                      width: "100%",
+                      position: "sticky",
+                      bottom: "-60px",
+                      left: "0",
+                    }
+              }
+            >
               <div
                 style={{
-                  maxWidth: "450px",
-                  width: "90%",
+                  width: "112px",
+                  height: "46px",
+                  fontFamily: "inter",
+                  fontWeight: "400",
+                  fontSize: "15px",
+                  backgroundColor: "#e5e2e2",
                   textAlign: "center",
-                  borderBottom: "0.5px solid #8b8b8b",
-                  paddingBottom: "52px",
-                  paddingTop: "50px",
+                  borderTopRightRadius: "15px",
+                  borderTopLeftRadius: "15px",
+                }}
+                onClick={() => {
+                  handleBox();
                 }}
               >
-                {" "}
+                {!dis && (
+                  <svg
+                    width="19"
+                    height="18"
+                    viewBox="0 0 19 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.625 6.75L9.125 11.25L4.625 6.75"
+                      stroke="black"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                )}
+
+                {dis && (
+                  <svg
+                    width="19"
+                    height="18"
+                    viewBox="0 0 19 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.375 11.25L9.875 6.75L14.375 11.25"
+                      stroke="black"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                )}
+                <p style={{ margin: "0px" }}>Tool Legend</p>
+              </div>
+              {dis && (
                 <div
-                  className="new"
                   style={{
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    justifyContent: "space-around",
+                    maxWidth: "100rem",
+                    width: "100%",
                     fontFamily: "inter",
-                    fontWeight: "700",
-                    fontSize: "24px",
+                    fontWeight: "400",
+                    fontSize: "15px",
+                    backgroundColor: "#e5e2e2",
+                    borderTopRightRadius: "15px",
+                    borderTopLeftRadius: "15px",
+                    transition: "height 5s",
                   }}
                 >
-                  {element.new.split("").map((char, charIndex) => (
+                  <p style={{ display: "flex" }}>
                     <span
-                      key={charIndex}
+                      class="dot"
                       style={{
-                        backgroundColor:
-                          colorMap[newMasks[index]?.[charIndex]] || "white",
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "#f9c95f",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        marginRight: "2px",
+                        marginLeft: "5px",
                       }}
                     >
-                      {char}
+                      {" "}
                     </span>
-                  ))}
+                    Double Spacing
+                  </p>
+                  <p style={{ display: "flex" }}>
+                    <span
+                      class="dot"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "#4ddcfb",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        marginRight: "2px",
+                        marginLeft: "5px",
+                      }}
+                    ></span>
+                    Content Error
+                  </p>
+                  <p style={{ display: "flex" }}>
+                    <span
+                      class="dot"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "#4ef4a8",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        marginRight: "2px",
+                        marginLeft: "5px",
+                      }}
+                    ></span>
+                    Formatting Issues (Example: Punctuation)
+                  </p>
+                  <p style={{ display: "flex" }}>
+                    <span
+                      class="dot"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "#805af9",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        marginRight: "2px",
+                        marginLeft: "5px",
+                      }}
+                    ></span>
+                    Bullet Points Inconsistencies
+                  </p>
+                  <p style={{ display: "flex" }}>
+                    <span
+                      class="dot"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        backgroundColor: "#f56666",
+                        borderRadius: "50%",
+                        display: "inline-block",
+                        marginRight: "2px",
+                        marginLeft: "5px",
+                      }}
+                    ></span>
+                    Uppercase/Lowercase Discrepancies
+                  </p>
                 </div>
-              </div>
+              )}
             </div>
-          ))}
-{/**tool legend */}
-
-          <div 
-          className="item"
-         style={ dis ? {
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              padding: "0px",
-              maxWidth:"1088px",
-              width:"100%",
-              position:"sticky",
-              bottom:"0px",
-              left:"0"
-
-            }:{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              padding: "0px",
-              maxWidth:"1088px",
-              width:"100%",
-              position:"sticky",
-              bottom:"-60px",
-              left:"0"
-
-            }}
-          >
-            <div
-              style={{
-                width: "112px",
-                height: "46px",
-                fontFamily: "inter",
-                fontWeight: "400",
-                fontSize: "15px",
-                backgroundColor: "#e5e2e2",
-                textAlign: "center",
-                borderTopRightRadius: "15px",
-                borderTopLeftRadius: "15px",
-              }}
-              onClick={() => {
-               handleBox()
-              }}
-            >
-            { !dis && <svg
-                width="19"
-                height="18"
-                viewBox="0 0 19 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M13.625 6.75L9.125 11.25L4.625 6.75"
-                  stroke="black"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg> }
-
-                {dis && <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.375 11.25L9.875 6.75L14.375 11.25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
- }
-              <p style={{ margin: "0px" }}>Tool Legend</p>
-            </div>
-         {dis && <div
-              style={{
-                display: "flex",
-                flexWrap: "nowrap",
-                justifyContent: "space-around",
-                maxWidth: "100rem",
-                width: "100%",
-                fontFamily: "inter",
-                fontWeight: "400",
-                fontSize: "15px",
-                backgroundColor: "#e5e2e2",
-                borderTopRightRadius: "15px",
-                borderTopLeftRadius: "15px",
-                transition:"height 5s"
-              }}
-            >
-              <p style={{ display: "flex" }}>
-                <span
-                  class="dot"
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#f9c95f",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    marginRight:"2px",
-                    marginLeft:"5px"
-                  }}
-                >  </span>       
-                Double Spacing
-              </p>
-              <p style={{ display: "flex" }}>
-                <span
-                  class="dot"
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#4ddcfb",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    marginRight:"2px",
-                    marginLeft:"5px"
-                  }}
-                ></span>
-                Content Error
-              </p>
-              <p style={{ display: "flex" }}>
-                <span
-                  class="dot"
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#4ef4a8",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    marginRight:"2px",
-                    marginLeft:"5px"
-                  }}
-                ></span>
-                Formatting Issues (Example: Punctuation)
-              </p>
-              <p style={{ display: "flex" }}>
-                <span
-                  class="dot"
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#805af9",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    marginRight:"2px",
-                    marginLeft:"5px"
-                  }}
-                ></span>
-                Bullet Points Inconsistencies
-              </p>
-              <p style={{ display: "flex" }}>
-                <span
-                  class="dot"
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: "#f56666",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    marginRight:"2px",
-                    marginLeft:"5px"
-                  }}
-                ></span>
-                Uppercase/Lowercase Discrepancies
-              </p>
-            </div>}
-          </div>
           </div>
         </div>
       </div>
@@ -478,7 +543,6 @@ console.log(dis);
 }
 
 export default Compares;
-
 
 /**<div class="item">
     <div class="item__overlay">

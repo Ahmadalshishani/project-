@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
+import Cloud from "../../assest/Cloud";
+import Cross from "../../assest/Cross";
 
 function DragAndDropFileUpload({ onFileUpload, label }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null); // Reference to the hidden file input
-
+ 
   // Handle file selection
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -51,7 +53,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
         borderRadius: "10px",
         padding: "20px",
         maxWidth: "690px",
-        marginTop:"33px",
+        marginTop: "33px",
         backgroundColor: "d5d5d5",
         transition: "background-color 0.3s",
         cursor: "pointer",
@@ -61,39 +63,66 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
       onDrop={handleDrop}
     >
       {/* Optional label */}
-      {label && <p style={{ fontWeight: "bold", marginBottom: "10px" }}>{label}</p>}
-      
+      {label && (
+        <p style={{ fontWeight: "bold", marginBottom: "10px" }}>{label}</p>
+      )}
+
       {/* Paragraph acts as the button */}
       {selectedFile ? (
-        <p
-          style={{
-            margin: "0",
-            color: "#484848",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
-          onClick={handleParagraphClick}
-        >
-          Selected File: {selectedFile.name}
-        </p>
+        <div>
+          <p
+            style={{
+              margin: "0",
+              color: "#484848",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+            onClick={handleParagraphClick}
+          >
+            Selected File: {selectedFile.name}
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                fileInputRef.current.value = '';
+                setSelectedFile(null)
+              }}
+            >
+              {" "}
+              <Cross />
+            </span>
+          </p>
+        </div>
       ) : (
-        <p
-          onClick={handleParagraphClick}
+        <div
           style={{
-            margin: "0",
-            color: "#484848",
-            fontSize: "16px",
-            cursor: "pointer",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "8px",
           }}
         >
-          Drag and drop a file here, or click this text to select a file
-        </p>
+          <Cloud />
+
+          <p
+            onClick={handleParagraphClick}
+            style={{
+              margin: "0",
+              color: "#484848",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            Drag and drop a file here, or click this text to select a file
+          </p>
+        </div>
       )}
 
       {/* Hidden file input */}
+
       <input
         type="file"
         ref={fileInputRef}
+        accept=".pdf, .pptx, .docx"
         style={{ display: "none" }}
         onChange={handleFileSelect}
       />

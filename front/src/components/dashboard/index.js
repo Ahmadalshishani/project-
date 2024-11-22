@@ -14,9 +14,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const username = localStorage.getItem("userName") || sessionStorage.getItem("userName");
   const useremail = localStorage.getItem("userEmail")|| sessionStorage.getItem("userEmail");
-  const{password}=useSelector((state)=>({
-    password:state.auth.password
-  }))
+ const password = localStorage.getItem("password") || sessionStorage.getItem("password")
   console.log(password);
   const basicAuth = `Basic ${btoa(`${useremail}:${password}`)}`;
 
@@ -45,7 +43,7 @@ const Dashboard = () => {
   // Handle file submission
   const handleSubmit = async () => {
     if (!originalFile || !designFile) {
-      alert("Please upload both files before submitting.");
+     
       return;
     }
 
@@ -73,11 +71,11 @@ const Dashboard = () => {
           navigate("/congrats");
         }
       } else {
-        alert("Failed to upload files.");
+        //alert("Failed to upload files.");
       }
     } catch (error) {
       console.error("Error uploading files:", error);
-      alert("An error occurred while uploading files.");
+    //  alert("An error occurred while uploading files.");
     }
   };
 
@@ -183,6 +181,7 @@ const Dashboard = () => {
           sharing
         </p>
         <button
+        disabled={originalFile && designFile?false:true}
           className={`submit-button ${
             originalFile && designFile ? "active" : "inactive"
           }`}
