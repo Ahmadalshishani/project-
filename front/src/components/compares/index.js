@@ -25,7 +25,7 @@ function Compares() {
   };
   const handleBack = () => {
     dispatch(deleteCompare());
-    navigate("/dashboard");
+    navigate("/");
   };
   
 const handleBox = ()=>{
@@ -56,7 +56,7 @@ console.log(dis);
 
   return (
     <>
-    {!compare && <Navigate to="/dashboard"/>}
+    {!compare && <Navigate to="/"/>}
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />
@@ -179,7 +179,7 @@ console.log(dis);
               </h1>
             </div>
           </div>
-          <div className="box" style={{maxWidth:"1090px"}}>
+          <div className="box" style={{maxWidth:"1200px",position:"relative"}}>
           {compare?.map((element, index) => (
             <div
               key={index}
@@ -217,6 +217,7 @@ console.log(dis);
                       style={{
                         backgroundColor:
                           colorMap[newMasks[index]?.[charIndex]] || "white",
+                          cursor: newMasks[index]?.[charIndex]? "pointer" : "default"
                       }}
                     >
                       {char}
@@ -314,14 +315,27 @@ console.log(dis);
 
           <div 
           className="item"
-            style={{
+         style={ dis ? {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               padding: "0px",
-              maxWidth:"1088",
+              maxWidth:"1088px",
               width:"100%",
+              position:"sticky",
+              bottom:"0px",
+              left:"0"
 
+            }:{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              padding: "0px",
+              maxWidth:"1088px",
+              width:"100%",
+              position:"sticky",
+              bottom:"-60px",
+              left:"0"
 
             }}
           >
@@ -388,7 +402,8 @@ console.log(dis);
                     backgroundColor: "#f9c95f",
                     borderRadius: "50%",
                     display: "inline-block",
-                    marginRight:"5px"
+                    marginRight:"2px",
+                    marginLeft:"5px"
                   }}
                 >  </span>       
                 Double Spacing
@@ -402,7 +417,8 @@ console.log(dis);
                     backgroundColor: "#4ddcfb",
                     borderRadius: "50%",
                     display: "inline-block",
-                    marginRight:"5px"
+                    marginRight:"2px",
+                    marginLeft:"5px"
                   }}
                 ></span>
                 Content Error
@@ -416,7 +432,8 @@ console.log(dis);
                     backgroundColor: "#4ef4a8",
                     borderRadius: "50%",
                     display: "inline-block",
-                    marginRight:"5px"
+                    marginRight:"2px",
+                    marginLeft:"5px"
                   }}
                 ></span>
                 Formatting Issues (Example: Punctuation)
@@ -430,7 +447,8 @@ console.log(dis);
                     backgroundColor: "#805af9",
                     borderRadius: "50%",
                     display: "inline-block",
-                    marginRight:"5px"
+                    marginRight:"2px",
+                    marginLeft:"5px"
                   }}
                 ></span>
                 Bullet Points Inconsistencies
@@ -444,7 +462,8 @@ console.log(dis);
                     backgroundColor: "#f56666",
                     borderRadius: "50%",
                     display: "inline-block",
-                    marginRight:"5px"
+                    marginRight:"2px",
+                    marginLeft:"5px"
                   }}
                 ></span>
                 Uppercase/Lowercase Discrepancies

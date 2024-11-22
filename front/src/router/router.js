@@ -17,7 +17,7 @@ path:'/',
 element:<Main/>,
 children:[
     {
-        path:"/dashboard",
+        path:"/",
         element:<Dashboard/>,
     },
     {
@@ -29,7 +29,7 @@ children:[
         ,element:<Congrats/>
     },
     {
-        path:"/",
+        path:"/login",
         element:<Login/>
     },
     

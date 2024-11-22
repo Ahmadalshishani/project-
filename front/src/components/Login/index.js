@@ -53,7 +53,7 @@ const dispatch=useDispatch()
         dispatch(setLogin(password))
         if (response) {
           console.log(localStorage.getItem("userName"));
-          navigate("/dashboard");
+          navigate("/");
         }
       })
       .catch((error) => {

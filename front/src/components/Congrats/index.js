@@ -12,7 +12,7 @@ const Congrats = () => {
 
   const handleBack = () => {
     dispatch(deleteCompare());
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (

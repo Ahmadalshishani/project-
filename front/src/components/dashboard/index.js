@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, {useState } from "react";
 import "./style.css";
 import Logo from "../../pictures/Group 8.png";
 import DragDrop from "../DragDrop/index";
 import { useDispatch, useSelector } from "react-redux";
 import { setCompare } from "../reducers/compare";
 import { useNavigate ,Navigate} from "react-router-dom";
-import { redirect} from "react-router-dom";
+
 
 const baseUrl = "http://194.242.57.64:5000";
 
@@ -85,7 +85,7 @@ const Dashboard = () => {
 
   return (
     <>
-    {!username && <Navigate to="/"/>}
+    {!username && <Navigate to="/login"/>}
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />
