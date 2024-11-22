@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import image from "../../pictures/2@2x 1.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLogin } from "../reducers/auth";
 
 const baseUrl = "http://194.242.57.64:5000";
 
 const Login = () => {
   const navigate = useNavigate();
-
+const dispatch=useDispatch()
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
@@ -38,6 +40,7 @@ const Login = () => {
         localStorage.setItem("userEmail", response.data.email);
         localStorage.setItem("userCompany", response.data.company);
         localStorage.setItem("userPhone", response.data.phone);
+        dispatch(setLogin(password))
         if (response) {
           console.log(localStorage.getItem("userName"));
           navigate("/dashboard");

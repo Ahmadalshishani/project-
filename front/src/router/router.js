@@ -4,6 +4,7 @@ import Dashboard from "../components/dashboard";
 import Compares from "../components/compares";
 import Login from "../components/Login";
 import Register from "../components/Register"
+import Congrats from "../components/Congrats";
 
 
 
@@ -22,6 +23,10 @@ children:[
     {
         path:"/compare",
         element:<Compares/>
+    },
+    {
+        path:"/congrats"
+        ,element:<Congrats/>
     },
     {
         path:"/",

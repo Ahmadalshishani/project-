@@ -9,15 +9,18 @@ import { useNavigate } from "react-router-dom";
 const baseUrl = "http://194.242.57.64:5000";
 
 const Dashboard = () => {
-  const navigate = useNavigate()
- 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = localStorage.getItem("userName");
   const useremail = localStorage.getItem("userEmail");
-  const password = "123456789";
+  const{password}=useSelector((state)=>({
+    password:state.auth.password
+  }))
+  console.log(password);
   const basicAuth = `Basic ${btoa(`${useremail}:${password}`)}`;
-
  
+  
+
   // State to manage files
   const [originalFile, setOriginalFile] = useState(null);
   const [designFile, setDesignFile] = useState(null);
@@ -26,7 +29,7 @@ const Dashboard = () => {
       compare: state.compare.comparing,
     };
   });
-console.log(compare);
+  console.log(compare);
   // API endpoint
   const baseUrl = "http://194.242.57.64:5000";
 
@@ -64,7 +67,11 @@ console.log(compare);
         const result = await response.json();
         dispatch(setCompare(result));
         console.log(result);
-        navigate("/compare");
+        if (result.length > 0) {
+          navigate("/compare");
+        } else if (result.length == 0) {
+          navigate("/congrats");
+        }
       } else {
         alert("Failed to upload files.");
       }
