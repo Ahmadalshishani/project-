@@ -7,8 +7,8 @@ const Congrats = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const username = localStorage.getItem("userName");
-  const useremail = localStorage.getItem("userEmail");
+  const username = localStorage.getItem("userName") || sessionStorage.getItem("userName");
+
 
   const handleBack = () => {
     dispatch(deleteCompare());
@@ -17,6 +17,7 @@ const Congrats = () => {
 
   return (
     <>
+
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />

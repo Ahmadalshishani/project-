@@ -4,22 +4,22 @@ import Logo from "../../pictures/Group 8.png";
 import DragDrop from "../DragDrop/index";
 import { useDispatch, useSelector } from "react-redux";
 import { setCompare } from "../reducers/compare";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Navigate} from "react-router-dom";
+import { redirect} from "react-router-dom";
 
 const baseUrl = "http://194.242.57.64:5000";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const username = localStorage.getItem("userName");
-  const useremail = localStorage.getItem("userEmail");
+  const username = localStorage.getItem("userName") || sessionStorage.getItem("userName");
+  const useremail = localStorage.getItem("userEmail")|| sessionStorage.getItem("userEmail");
   const{password}=useSelector((state)=>({
     password:state.auth.password
   }))
   console.log(password);
   const basicAuth = `Basic ${btoa(`${useremail}:${password}`)}`;
- 
-  
+
 
   // State to manage files
   const [originalFile, setOriginalFile] = useState(null);
@@ -81,8 +81,11 @@ const Dashboard = () => {
     }
   };
 
+  
+
   return (
     <>
+    {!username && <Navigate to="/"/>}
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />

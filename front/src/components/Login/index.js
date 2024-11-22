@@ -14,6 +14,7 @@ const dispatch=useDispatch()
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [remember,setRemember]=useState()
 
   const login = () => {
     if (!username || !password) {
@@ -36,10 +37,19 @@ const dispatch=useDispatch()
         console.log("Login successful:", response.data);
         setSuccess(true);
         setErrorMessage("");
-        localStorage.setItem("userName", response.data.name);
-        localStorage.setItem("userEmail", response.data.email);
-        localStorage.setItem("userCompany", response.data.company);
-        localStorage.setItem("userPhone", response.data.phone);
+        if(remember){
+          localStorage.setItem("userName", response.data.name);
+          localStorage.setItem("userEmail", response.data.email);
+          localStorage.setItem("userCompany", response.data.company);
+          localStorage.setItem("userPhone", response.data.phone);
+        }else{
+          sessionStorage.setItem("userName", response.data.name);
+          sessionStorage.setItem("userEmail", response.data.email);
+          sessionStorage.setItem("userCompany", response.data.company);
+          sessionStorage.setItem("userPhone", response.data.phone);
+        }
+       
+       
         dispatch(setLogin(password))
         if (response) {
           console.log(localStorage.getItem("userName"));
@@ -137,6 +147,7 @@ const dispatch=useDispatch()
               <input
                 type="checkbox"
                 style={{ height: "24px", width: "24px" }}
+                onChange={(e)=>setRemember(e.target.value)}
                 
               />
               <p

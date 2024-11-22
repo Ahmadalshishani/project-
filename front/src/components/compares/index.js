@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../pictures/Group 8.png";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { deleteCompare } from "../reducers/compare";
 
 function Compares() {
@@ -13,7 +13,7 @@ function Compares() {
   }));
   const [dis,setDis]=useState(false)
 
-  const username = localStorage.getItem("userName");
+  const username = localStorage.getItem("userName") || sessionStorage.getItem("userName");
   console.log("compare page", compare);
 
   const colorMap = {
@@ -56,6 +56,7 @@ console.log(dis);
 
   return (
     <>
+    {!compare && <Navigate to="/dashboard"/>}
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />
@@ -340,7 +341,7 @@ console.log(dis);
                handleBox()
               }}
             >
-            { dis && <svg
+            { !dis && <svg
                 width="19"
                 height="18"
                 viewBox="0 0 19 18"
@@ -356,7 +357,7 @@ console.log(dis);
                 />
               </svg> }
 
-                {!dis && <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {dis && <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M5.375 11.25L9.875 6.75L14.375 11.25" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
  }
