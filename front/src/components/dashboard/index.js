@@ -17,7 +17,7 @@ const Dashboard = () => {
  const password = localStorage.getItem("password") || sessionStorage.getItem("password")
   console.log(password);
   const basicAuth = `Basic ${btoa(`${useremail}:${password}`)}`;
-
+  const [dis, setDis] = useState(false);
 
   // State to manage files
   const [originalFile, setOriginalFile] = useState(null);
@@ -97,6 +97,7 @@ const Dashboard = () => {
             gap: "10px",
           }}
         >
+          <span class="loader" style={dis ?{display:"inline-block"}:{display:"none"}}></span>
           <div style={{ width: "100%" }}>
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
               Upload Original File
@@ -185,7 +186,10 @@ const Dashboard = () => {
           className={`submit-button ${
             originalFile && designFile ? "active" : "inactive"
           }`}
-          onClick={handleSubmit}
+          onClick={()=>{
+            handleSubmit()
+            setDis(!dis)
+          }}
         >
           Compare files now
         </button>

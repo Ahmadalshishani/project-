@@ -17,6 +17,7 @@ function Compares() {
     localStorage.getItem("userName") || sessionStorage.getItem("userName");
   console.log("compare page", compare);
   const [popupData, setPopupData] = useState(null);
+  const [newPopupData, setNewPopupData] = useState(null);
   const disArray = [
     { text: "Double Spacing", color: "#f9c95f" },
     { text: "Content Error", color: "#4ddcfb" },
@@ -66,8 +67,8 @@ function Compares() {
     item.old_mask ? parseMask(item.old_mask) : {}
   );
 
-  const handleCharacterClick = (sentenceIndex, charIndex, char) => {
-    const value = newMasks[sentenceIndex]?.[charIndex];
+  const handleCharacterClick = (sentenceIndex, charIndex, char,masks) => {
+    const value = masks[sentenceIndex]?.[charIndex];
     if (value) {
       setPopupData({
         sentenceIndex,
@@ -75,9 +76,23 @@ function Compares() {
         char,
         value,
       });
-      console.log("full", newMasks[sentenceIndex][charIndex]);
+      console.log("full", oldMasks[sentenceIndex][charIndex]);
     } else {
       setPopupData(null);
+    }
+  };
+  const handleCharacterHover = (sentenceIndex, charIndex, char) => {
+    const value = newMasks[sentenceIndex]?.[charIndex];
+    if (value) {
+      setNewPopupData({
+        sentenceIndex,
+        charIndex,
+        char,
+        value,
+      });
+      console.log("full", oldMasks[sentenceIndex][charIndex]);
+    } else {
+      setNewPopupData(null);
     }
   };
 
@@ -144,6 +159,7 @@ function Compares() {
             flexDirection: "column",
             alignItems: "inherit",
           }}
+        
         >
           <div
             style={{
@@ -242,13 +258,16 @@ function Compares() {
                       <span
                         key={charIndex}
                         onPointerOver={() =>
-                          handleCharacterClick(index, charIndex, char)
+                          handleCharacterClick(index, charIndex, char,oldMasks)
                         }
+                        onPointerLeave={()=>{
+                          setPopupData(null)
+                        }}
                         style={{
                           position: "relative",
                           backgroundColor:
-                            colorMap[newMasks[index]?.[charIndex]] || "white",
-                          cursor: newMasks[index]?.[charIndex]
+                            colorMap[oldMasks[index]?.[charIndex]] || "white",
+                          cursor: oldMasks[index]?.[charIndex]
                             ? "pointer"
                             : "default",
                         }}
@@ -269,7 +288,7 @@ function Compares() {
                                 width: "200px",
                               }}
                             >
-                              {errorType[newMasks[index]?.[charIndex]]}
+                              {errorType[oldMasks[index]?.[charIndex]]}
                             </div>
                           )}
                         {char}
@@ -351,11 +370,41 @@ function Compares() {
                     {element.new.split("").map((char, charIndex) => (
                       <span
                         key={charIndex}
+                        onPointerOver={() =>{
+                          setNewPopupData(null)
+                          handleCharacterHover(index, charIndex, char)
+                          }
+                        }
+                        onPointerLeave={()=>{
+                          console.log("po");
+                          setNewPopupData(null)
+                        }}
                         style={{
+                          position:"relative",
                           backgroundColor:
                             colorMap[newMasks[index]?.[charIndex]] || "white",
                         }}
                       >
+                          {newPopupData &&
+                          newPopupData.sentenceIndex === index &&
+                          newPopupData.charIndex === charIndex && (
+                            <div
+                              style={{
+                                borderRadius: "15px",
+                                padding: "10px 10px",
+                                position: "absolute",
+                                top: "-50px",
+                                left: "-100px",
+                                backgroundColor: "#2b1b4c",
+                                zIndex: "99999",
+                                color: "white",
+                                width: "200px",
+                              }}
+                            >
+                              {errorType[newMasks[index]?.[charIndex]]}
+                              
+                            </div>
+                          )}
                         {char}
                       </span>
                     ))}
@@ -496,11 +545,4 @@ function Compares() {
 
 export default Compares;
 
-/**<div class="item">
-    <div class="item__overlay">
-      <h3 id="person1" aria-hidden="true">Person Name 1</h3>
-      <div class="item__body">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </div>
-    </div>
-  </div> */
+
