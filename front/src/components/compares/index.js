@@ -12,18 +12,36 @@ function Compares() {
     compare: state.compare.comparing,
   }));
   const [dis, setDis] = useState(false);
-
   const username =
     localStorage.getItem("userName") || sessionStorage.getItem("userName");
-  console.log("compare page", compare);
   const [popupData, setPopupData] = useState(null);
   const [newPopupData, setNewPopupData] = useState(null);
   const disArray = [
-    { text: "Double Spacing", color: "#f9c95f" },
-    { text: "Content Error", color: "#4ddcfb" },
-    { text: "Formatting Issues (Example: Punctuation)", color: "#4ef4a8" },
-    { text: "Bullet Points Inconsistencies", color: "#805af9" },
-    { text: "Uppercase/Lowercase Discrepancies", color: "#f56666" },
+    {
+      text: "Double Spacing",
+      color: "#d5ba81",
+      shade: false,
+    },
+    {
+      text: "Content Error",
+      color: "#7abdcd",
+      shade: false,
+    },
+    {
+      text: "Formatting Issues (Example: Punctuation)",
+      color: "#76cba5",
+      shade: false,
+    },
+    {
+      text: "Bullet Points Inconsistencies",
+      color: "#9381cf",
+      shade: false,
+    },
+    {
+      text: "Uppercase/Lowercase Discrepancies",
+      color: "#d28989",
+      shade: false,
+    },
   ];
   const colorMap = {
     1: "#4ddcfb",
@@ -45,9 +63,7 @@ function Compares() {
   };
 
   const handleBox = () => {
-    console.log(0);
     setDis(!dis);
-    console.log(dis);
   };
 
   const parseMask = (mask) => {
@@ -57,6 +73,7 @@ function Compares() {
         parsedMask[index] = parseInt(char, 10);
       }
     });
+
     return parsedMask;
   };
 
@@ -66,26 +83,80 @@ function Compares() {
   const oldMasks = compare?.map((item) =>
     item.old_mask ? parseMask(item.old_mask) : {}
   );
-  const newBold= compare?.map((item) =>
-  item.new_bold ? parseMask(item.new_bold) : {}
-);
-const oldBold = compare?.map((item) =>
-  item.old_bold ? parseMask(item.old_bold) : {}
-);
-const newItalic= compare?.map((item) =>
-item.new_italic ? parseMask(item.new_italic) : {}
-);
-const oldItalic = compare?.map((item) =>
-item.old_italic ? parseMask(item.old_italic) : {}
-);
-const newUnderline = compare?.map((item) =>
-item.new_underline ? parseMask(item.new_underline) : {}
-);
-const oldUnderLline = compare?.map((item) =>
-item.old_underline ? parseMask(item.old_underline) : {}
-);
+  const newBold = compare?.map((item) =>
+    item.new_bold ? parseMask(item.new_bold) : {}
+  );
+  const oldBold = compare?.map((item) =>
+    item.old_bold ? parseMask(item.old_bold) : {}
+  );
+  const newItalic = compare?.map((item) =>
+    item.new_italic ? parseMask(item.new_italic) : {}
+  );
+  const oldItalic = compare?.map((item) =>
+    item.old_italic ? parseMask(item.old_italic) : {}
+  );
+  const newUnderline = compare?.map((item) =>
+    item.new_underline ? parseMask(item.new_underline) : {}
+  );
+  const oldUnderLline = compare?.map((item) =>
+    item.old_underline ? parseMask(item.old_underline) : {}
+  );
+  if (newMasks) {
+    newMasks.map((char) => {
+      Object.values(char).forEach((value) => {
+        if (value == 1) {
+          disArray[1].shade = true;
+          return (disArray[1].color = "#4ddcfb");
+        }
+        if (value == 2) {
+          disArray[2].shade = true;
+          return (disArray[2].color = "#4ef4a8");
+        }
+        if (value == 3) {
+          disArray[0].shade = true;
+          return (disArray[0].color = "#f9c95f");
+        }
+        if (value == 4) {
+          disArray[3].shade = true;
+          return (disArray[3].color = "#805af9");
+        }
+        if (value == 5) {
+          disArray[4].shade = true;
+          return (disArray[4].color = "#f56666");
+        }
+      });
+    });
+  }
 
-  const handleCharacterClick = (sentenceIndex, charIndex, char,masks) => {
+  if (oldMasks) {
+    oldMasks.map((char) => {
+      Object.values(char).forEach((value) => {
+        if (value == 1) {
+          return (disArray[1].color = "#4ddcfb");
+        }
+        if (value == 2) {
+          return (disArray[2].color = "#4ef4a8");
+        }
+        if (value == 3) {
+          return (disArray[0].color = "#f9c95f");
+        }
+        if (value == 4) {
+          return (disArray[3].color = "#805af9");
+        }
+        if (value == 5) {
+          return (disArray[4].color = "#f56666");
+        } else {
+          disArray[1].color = "#7abdcd";
+          disArray[4].color = "#d28989";
+          disArray[2].color = "#76cba5";
+          disArray[0].color = "#d5ba81";
+          disArray[3].color = "#9381cf";
+        }
+      });
+    });
+  }
+
+  const handleCharacterClick = (sentenceIndex, charIndex, char, masks) => {
     const value = masks[sentenceIndex]?.[charIndex];
     if (value) {
       setPopupData({
@@ -94,7 +165,6 @@ item.old_underline ? parseMask(item.old_underline) : {}
         char,
         value,
       });
-      console.log("full", oldMasks[sentenceIndex][charIndex]);
     } else {
       setPopupData(null);
     }
@@ -108,18 +178,10 @@ item.old_underline ? parseMask(item.old_underline) : {}
         char,
         value,
       });
-      console.log("full", oldMasks[sentenceIndex][charIndex]);
     } else {
       setNewPopupData(null);
     }
   };
-
-  console.log("Parsed New Masks:", newMasks);
-  console.log("Parsed Old Masks:", oldMasks);
-  console.log("Parsed New Masks1:", newBold);
-  console.log("Parsed Old Masks2:", oldBold);
-  console.log("Parsed New Masks3:", newItalic);
-  console.log("Parsed Old Masks4:", oldItalic);
 
   return (
     <>
@@ -181,7 +243,6 @@ item.old_underline ? parseMask(item.old_underline) : {}
             flexDirection: "column",
             alignItems: "inherit",
           }}
-        
         >
           <div
             style={{
@@ -280,10 +341,10 @@ item.old_underline ? parseMask(item.old_underline) : {}
                       <span
                         key={charIndex}
                         onPointerOver={() =>
-                          handleCharacterClick(index, charIndex, char,oldMasks)
+                          handleCharacterClick(index, charIndex, char, oldMasks)
                         }
-                        onPointerLeave={()=>{
-                          setPopupData(null)
+                        onPointerLeave={() => {
+                          setPopupData(null);
                         }}
                         style={{
                           position: "relative",
@@ -292,16 +353,22 @@ item.old_underline ? parseMask(item.old_underline) : {}
                           cursor: oldMasks[index]?.[charIndex]
                             ? "pointer"
                             : "default",
-                            fontWeight:oldBold[index]?.[charIndex] ?"900":"400",
-                            fontStyle: oldItalic[index]?.[charIndex] ? "italic": "normal",
-                            textDecoration: oldUnderLline[index]?.[charIndex] ?"underline":"none"
-
+                          fontWeight: oldBold[index]?.[charIndex]
+                            ? "900"
+                            : "400",
+                          fontStyle: oldItalic[index]?.[charIndex]
+                            ? "italic"
+                            : "normal",
+                          textDecoration: oldUnderLline[index]?.[charIndex]
+                            ? "underline"
+                            : "none",
                         }}
                       >
                         {popupData &&
                           popupData.sentenceIndex === index &&
                           popupData.charIndex === charIndex && (
                             <div
+                              className="popup"
                               style={{
                                 borderRadius: "15px",
                                 padding: "10px 10px",
@@ -312,6 +379,7 @@ item.old_underline ? parseMask(item.old_underline) : {}
                                 zIndex: "99999",
                                 color: "white",
                                 width: "200px",
+                                fontWeight: "400 !important",
                               }}
                             >
                               {errorType[oldMasks[index]?.[charIndex]]}
@@ -396,31 +464,36 @@ item.old_underline ? parseMask(item.old_underline) : {}
                     {element.new.split("").map((char, charIndex) => (
                       <span
                         key={charIndex}
-                        onPointerOver={() =>{
-                          setNewPopupData(null)
-                          handleCharacterHover(index, charIndex, char)
-                          }
-                        }
-                        onPointerLeave={()=>{
-                          console.log("po");
-                          setNewPopupData(null)
+                        onPointerOver={() => {
+                          setNewPopupData(null);
+                          handleCharacterHover(index, charIndex, char);
+                        }}
+                        onPointerLeave={() => {
+                          setNewPopupData(null);
                         }}
                         style={{
-                          position:"relative",
+                          position: "relative",
                           backgroundColor:
                             colorMap[newMasks[index]?.[charIndex]] || "white",
-                            cursor: newMasks[index]?.[charIndex]
+                          cursor: newMasks[index]?.[charIndex]
                             ? "pointer"
                             : "default",
-                            fontWeight:newBold[index]?.[charIndex] ?"900":"400",
-                            fontStyle: newItalic[index]?.[charIndex] ? "italic": "inter",
-                            textDecoration: newUnderline[index]?.[charIndex] ?"underline":"none"
+                          fontWeight: newBold[index]?.[charIndex]
+                            ? "900"
+                            : "400",
+                          fontStyle: newItalic[index]?.[charIndex]
+                            ? "italic"
+                            : "inter",
+                          textDecoration: newUnderline[index]?.[charIndex]
+                            ? "underline"
+                            : "none",
                         }}
                       >
-                          {newPopupData &&
+                        {newPopupData &&
                           newPopupData.sentenceIndex === index &&
                           newPopupData.charIndex === charIndex && (
                             <div
+                              className="popup"
                               style={{
                                 borderRadius: "15px",
                                 padding: "10px 10px",
@@ -434,7 +507,6 @@ item.old_underline ? parseMask(item.old_underline) : {}
                               }}
                             >
                               {errorType[newMasks[index]?.[charIndex]]}
-                              
                             </div>
                           )}
                         {char}
@@ -469,7 +541,7 @@ item.old_underline ? parseMask(item.old_underline) : {}
                       maxWidth: "1088px",
                       width: "100%",
                       position: "sticky",
-                      bottom: "-60px",
+                      bottom: "0px",
                       left: "0",
                     }
               }
@@ -544,15 +616,22 @@ item.old_underline ? parseMask(item.old_underline) : {}
                     transition: "height 5s",
                   }}
                 >
-                  {disArray.map((element) => {
-                    const { color, text } = element;
+                  {disArray.map((element, index) => {
+                    const { color, text, shade } = element;
                     return (
-                      <p style={{ display: "flex" }}>
+                      <p
+                        style={{
+                          display: "flex",
+                          color: shade ? "#000000" : "#999999",
+                        }}
+                      >
                         <span
+                          key={index}
                           style={{
                             width: "20px",
                             height: "20px",
                             backgroundColor: color,
+
                             borderRadius: "50%",
                             display: "inline-block",
                             marginRight: "2px",
@@ -576,5 +655,3 @@ item.old_underline ? parseMask(item.old_underline) : {}
 }
 
 export default Compares;
-
-

@@ -3,9 +3,9 @@ import image from "../../pictures/2@2x 1.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const baseUrl="http://194.242.57.64:5000"
+const baseUrl = "http://194.242.57.64:5000";
 function Register() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,36 +13,32 @@ function Register() {
   const [phone, setPhone] = useState("");
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [agree,setAgree]=useState(false)
+  const [agree, setAgree] = useState(false);
 
   const register = () => {
     if (!agree) {
-        console.log("Please Agree the terms");
-        setErrorMessage("Please Agree the terms and policy")
-        return;
-      }
+      console.log("Please Agree the terms");
+      setErrorMessage("Please Agree the terms and policy");
+      return;
+    }
 
-    console.log(password);
     axios
       .put(`${baseUrl}/register`, {
-        name:name,
-        email:email,
-        password:password,
-        company:company,
-        phone:phone,
-      },
-      )
+        name: name,
+        email: email,
+        password: password,
+        company: company,
+        phone: phone,
+      })
       .then((result) => {
         console.log(result);
         setSuccess(true);
         setErrorMessage("");
-       
       })
       .catch((err) => {
         console.log(err);
         setSuccess(false);
         setErrorMessage("Login failed. Please check your credentials.");
-      
       });
   };
 
@@ -68,7 +64,8 @@ function Register() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               onClick={() => {
-                navigate("/login")}}
+                navigate("/login");
+              }}
             >
               <path
                 d="M10.9375 23.4375H42.1875C42.6019 23.4375 42.9993 23.6021 43.2924 23.8951C43.5854 24.1882 43.75 24.5856 43.75 25C43.75 25.4144 43.5854 25.8118 43.2924 26.1049C42.9993 26.3979 42.6019 26.5625 42.1875 26.5625H10.9375C10.5231 26.5625 10.1257 26.3979 9.83265 26.1049C9.53962 25.8118 9.375 25.4144 9.375 25C9.375 24.5856 9.53962 24.1882 9.83265 23.8951C10.1257 23.6021 10.5231 23.4375 10.9375 23.4375Z"
@@ -91,7 +88,7 @@ function Register() {
               Sign Up to Compare
             </p>
           </div>
-          <div style={{marginTop:"58px"}}>
+          <div style={{ marginTop: "58px" }}>
             <p
               style={{
                 fontFamily: "inter",
@@ -155,8 +152,7 @@ function Register() {
                 borderRadius: "6px",
                 paddingLeft: "10px",
               }}
-
-               onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -222,18 +218,18 @@ function Register() {
             </div>
           </div>
           <button
-           onClick={register}
+            onClick={register}
             style={{
               width: "100%",
               height: "32px",
-            backgroundColor: success ? "#4CAF50" : "#F56666", // Green on success
+              backgroundColor: success ? "#4CAF50" : "#F56666", // Green on success
               color: "white",
               border: "0px",
               borderRadius: "10px",
               cursor: "pointer",
-              fontFamily:"inter",
-              fontSize:"13px",
-              fontWeight:"700"  
+              fontFamily: "inter",
+              fontSize: "13px",
+              fontWeight: "700",
             }}
           >
             Signup

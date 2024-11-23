@@ -14,7 +14,6 @@ const Cross = () => {
         fill="red"
       />
     </svg>
-
   );
 };
 

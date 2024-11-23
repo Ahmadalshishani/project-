@@ -9,20 +9,19 @@ const baseUrl = "http://194.242.57.64:5000";
 
 const Login = () => {
   const navigate = useNavigate();
-const dispatch=useDispatch()
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [remember,setRemember]=useState()
+  const [remember, setRemember] = useState();
 
   const login = () => {
     if (!username || !password) {
       console.log("Please enter both username and password.");
       return;
     }
-    console.log(typeof username);
-    console.log(typeof password);
+
     axios
       .post(
         `${baseUrl}/login`,
@@ -37,24 +36,22 @@ const dispatch=useDispatch()
         console.log("Login successful:", response.data);
         setSuccess(true);
         setErrorMessage("");
-        if(remember){
+        if (remember) {
           localStorage.setItem("userName", response.data.name);
           localStorage.setItem("userEmail", response.data.email);
           localStorage.setItem("userCompany", response.data.company);
           localStorage.setItem("userPhone", response.data.phone);
-          localStorage.setItem("password",password)
-        }else{
+          localStorage.setItem("password", password);
+        } else {
           sessionStorage.setItem("userName", response.data.name);
           sessionStorage.setItem("userEmail", response.data.email);
           sessionStorage.setItem("userCompany", response.data.company);
           sessionStorage.setItem("userPhone", response.data.phone);
-          sessionStorage.setItem("password",password)
+          sessionStorage.setItem("password", password);
         }
-       
-       
-        dispatch(setLogin(password))
+
+        dispatch(setLogin(password));
         if (response) {
-          console.log(localStorage.getItem("userName"));
           navigate("/");
         }
       })
@@ -149,8 +146,7 @@ const dispatch=useDispatch()
               <input
                 type="checkbox"
                 style={{ height: "24px", width: "24px" }}
-                onChange={(e)=>setRemember(e.target.value)}
-                
+                onChange={(e) => setRemember(e.target.value)}
               />
               <p
                 style={{

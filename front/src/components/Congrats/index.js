@@ -7,8 +7,8 @@ const Congrats = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const username = localStorage.getItem("userName") || sessionStorage.getItem("userName");
-
+  const username =
+    localStorage.getItem("userName") || sessionStorage.getItem("userName");
 
   const handleBack = () => {
     dispatch(deleteCompare());
@@ -17,7 +17,6 @@ const Congrats = () => {
 
   return (
     <>
-
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />
@@ -97,13 +96,13 @@ const Congrats = () => {
               height: "49px",
               borderRadius: "12px",
               backgroundColor: "#f56666",
-              fontFamily:"inter",
-              fontWeight:"700",
-              fontSize:"24px",
-              color:"white"
+              fontFamily: "inter",
+              fontWeight: "700",
+              fontSize: "24px",
+              color: "white",
             }}
-            onClick={()=>{
-                handleBack()
+            onClick={() => {
+              handleBack();
             }}
           >
             Compare more slides

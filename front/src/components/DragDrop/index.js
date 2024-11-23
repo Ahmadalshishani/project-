@@ -6,7 +6,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null); // Reference to the hidden file input
- 
+
   // Handle file selection
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -83,8 +83,8 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
             <span
               onClick={(e) => {
                 e.stopPropagation();
-                fileInputRef.current.value = '';
-                setSelectedFile(null)
+                fileInputRef.current.value = "";
+                setSelectedFile(null);
               }}
             >
               {" "}

@@ -1,21 +1,22 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import Logo from "../../pictures/Group 8.png";
 import DragDrop from "../DragDrop/index";
 import { useDispatch, useSelector } from "react-redux";
 import { setCompare } from "../reducers/compare";
-import { useNavigate ,Navigate} from "react-router-dom";
-
+import { useNavigate, Navigate } from "react-router-dom";
 
 const baseUrl = "http://194.242.57.64:5000";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const username = localStorage.getItem("userName") || sessionStorage.getItem("userName");
-  const useremail = localStorage.getItem("userEmail")|| sessionStorage.getItem("userEmail");
- const password = localStorage.getItem("password") || sessionStorage.getItem("password")
-  console.log(password);
+  const username =
+    localStorage.getItem("userName") || sessionStorage.getItem("userName");
+  const useremail =
+    localStorage.getItem("userEmail") || sessionStorage.getItem("userEmail");
+  const password =
+    localStorage.getItem("password") || sessionStorage.getItem("password");
   const basicAuth = `Basic ${btoa(`${useremail}:${password}`)}`;
   const [dis, setDis] = useState(false);
 
@@ -27,7 +28,6 @@ const Dashboard = () => {
       compare: state.compare.comparing,
     };
   });
-  console.log(compare);
   // API endpoint
   const baseUrl = "http://194.242.57.64:5000";
 
@@ -43,15 +43,12 @@ const Dashboard = () => {
   // Handle file submission
   const handleSubmit = async () => {
     if (!originalFile || !designFile) {
-     
       return;
     }
 
     const formData = new FormData();
     formData.append("old_doc", originalFile);
     formData.append("new_doc", designFile);
-
-    console.log(useremail);
 
     try {
       const response = await fetch(`${baseUrl}/compare`, {
@@ -64,7 +61,6 @@ const Dashboard = () => {
       if (response.ok) {
         const result = await response.json();
         dispatch(setCompare(result));
-        console.log(result);
         if (result.length > 0) {
           navigate("/compare");
         } else if (result.length == 0) {
@@ -75,15 +71,13 @@ const Dashboard = () => {
       }
     } catch (error) {
       console.error("Error uploading files:", error);
-    //  alert("An error occurred while uploading files.");
+      //  alert("An error occurred while uploading files.");
     }
   };
 
-  
-
   return (
     <>
-    {!username && <Navigate to="/login"/>}
+      {!username && <Navigate to="/login" />}
       <header className="header">
         <p>Welcome, {username} 👋</p>
         <img src={Logo} alt="Company Logo" />
@@ -97,7 +91,10 @@ const Dashboard = () => {
             gap: "10px",
           }}
         >
-          <span class="loader" style={dis ?{display:"inline-block"}:{display:"none"}}></span>
+          <span
+            class="loader"
+            style={dis ? { display: "inline-block" } : { display: "none" }}
+          ></span>
           <div style={{ width: "100%" }}>
             <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
               Upload Original File
@@ -182,13 +179,13 @@ const Dashboard = () => {
           sharing
         </p>
         <button
-        disabled={originalFile && designFile?false:true}
+          disabled={originalFile && designFile ? false : true}
           className={`submit-button ${
             originalFile && designFile ? "active" : "inactive"
           }`}
-          onClick={()=>{
-            handleSubmit()
-            setDis(!dis)
+          onClick={() => {
+            handleSubmit();
+            setDis(!dis);
           }}
         >
           Compare files now
