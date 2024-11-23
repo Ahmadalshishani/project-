@@ -66,6 +66,24 @@ function Compares() {
   const oldMasks = compare?.map((item) =>
     item.old_mask ? parseMask(item.old_mask) : {}
   );
+  const newBold= compare?.map((item) =>
+  item.new_bold ? parseMask(item.new_bold) : {}
+);
+const oldBold = compare?.map((item) =>
+  item.old_bold ? parseMask(item.old_bold) : {}
+);
+const newItalic= compare?.map((item) =>
+item.new_italic ? parseMask(item.new_italic) : {}
+);
+const oldItalic = compare?.map((item) =>
+item.old_italic ? parseMask(item.old_italic) : {}
+);
+const newUnderline = compare?.map((item) =>
+item.new_underline ? parseMask(item.new_underline) : {}
+);
+const oldUnderLline = compare?.map((item) =>
+item.old_underline ? parseMask(item.old_underline) : {}
+);
 
   const handleCharacterClick = (sentenceIndex, charIndex, char,masks) => {
     const value = masks[sentenceIndex]?.[charIndex];
@@ -98,6 +116,10 @@ function Compares() {
 
   console.log("Parsed New Masks:", newMasks);
   console.log("Parsed Old Masks:", oldMasks);
+  console.log("Parsed New Masks1:", newBold);
+  console.log("Parsed Old Masks2:", oldBold);
+  console.log("Parsed New Masks3:", newItalic);
+  console.log("Parsed Old Masks4:", oldItalic);
 
   return (
     <>
@@ -250,7 +272,7 @@ function Compares() {
                     className="old"
                     style={{
                       fontFamily: "inter",
-                      fontWeight: "700",
+                      fontWeight: "400",
                       fontSize: "24px",
                     }}
                   >
@@ -270,6 +292,10 @@ function Compares() {
                           cursor: oldMasks[index]?.[charIndex]
                             ? "pointer"
                             : "default",
+                            fontWeight:oldBold[index]?.[charIndex] ?"900":"400",
+                            fontStyle: oldItalic[index]?.[charIndex] ? "italic": "normal",
+                            textDecoration: oldUnderLline[index]?.[charIndex] ?"underline":"none"
+
                         }}
                       >
                         {popupData &&
@@ -363,7 +389,7 @@ function Compares() {
                     className="new"
                     style={{
                       fontFamily: "inter",
-                      fontWeight: "700",
+                      fontWeight: "400",
                       fontSize: "24px",
                     }}
                   >
@@ -383,6 +409,12 @@ function Compares() {
                           position:"relative",
                           backgroundColor:
                             colorMap[newMasks[index]?.[charIndex]] || "white",
+                            cursor: newMasks[index]?.[charIndex]
+                            ? "pointer"
+                            : "default",
+                            fontWeight:newBold[index]?.[charIndex] ?"900":"400",
+                            fontStyle: newItalic[index]?.[charIndex] ? "italic": "inter",
+                            textDecoration: newUnderline[index]?.[charIndex] ?"underline":"none"
                         }}
                       >
                           {newPopupData &&
