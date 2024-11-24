@@ -121,7 +121,12 @@ console.log(dis);
             />
           </div>
           <div style={{position:"relative"}}>
-            <p>Password</p>
+            <p  style={{
+                fontFamily: "inter",
+                fontWeight: "500",
+                fontSize: "14px",
+                marginTop: "29px",
+              }}>Password</p>
             <input
               type={dis ? "password": "text"}
               placeholder="Enter your password"
@@ -135,7 +140,7 @@ console.log(dis);
               }}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <span class="password-toggle-icon" style={{height:"20px",width:'20px',position:"absolute",top :"48px",right:"0"}} onClick={()=>{(setDis(!dis))}} ><i class={!dis?"fas fa-eye-slash":"fas fa-eye"}></i></span>
+            <span class="password-toggle-icon" style={{height:"20px",width:'20px',position:"absolute",top :"40px",right:"0"}} onClick={()=>{(setDis(!dis))}} ><i class={!dis?"fas fa-eye-slash":"fas fa-eye"}></i></span>
           </div>
           <div
             style={{

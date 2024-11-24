@@ -182,7 +182,11 @@ function Register() {
             />
           </div>
           <div>
-            <p>Phone Number</p>
+            <p  style={{
+                fontFamily: "inter",
+                fontWeight: "500",
+                fontSize: "14px",
+              }}>Phone Number</p>
             <input
               placeholder="Enter your phone number"
               style={{
