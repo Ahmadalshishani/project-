@@ -14,7 +14,7 @@ function Register() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [agree, setAgree] = useState(false);
-  const [dis,setDis]=useState(false)
+  const [dis, setDis] = useState(false);
 
   const register = () => {
     if (!agree) {
@@ -35,7 +35,7 @@ function Register() {
         console.log(result);
         setSuccess(true);
         setErrorMessage("");
-        navigate("/login")
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -134,7 +134,7 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div style={{position:"relative"}}>
+          <div style={{ position: "relative" }}>
             <p
               style={{
                 fontFamily: "inter",
@@ -145,7 +145,7 @@ function Register() {
               Password
             </p>
             <input
-              type={dis ? "password": "text"}
+              type={dis ? "password" : "text"}
               placeholder="Enter your password"
               style={{
                 maxWidth: "404px",
@@ -156,7 +156,21 @@ function Register() {
               }}
               onChange={(e) => setPassword(e.target.value)}
             />
-             <span class="password-toggle-icon" style={{height:"20px",width:'20px',position:"absolute",top :"40px",right:"0"}} onClick={()=>{(setDis(!dis))}} ><i class={!dis?"fas fa-eye-slash":"fas fa-eye"}></i></span>
+            <span
+              class="password-toggle-icon"
+              style={{
+                height: "20px",
+                width: "20px",
+                position: "absolute",
+                top: "40px",
+                right: "0",
+              }}
+              onClick={() => {
+                setDis(!dis);
+              }}
+            >
+              <i class={!dis ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+            </span>
           </div>
 
           <div>
@@ -182,11 +196,15 @@ function Register() {
             />
           </div>
           <div>
-            <p  style={{
+            <p
+              style={{
                 fontFamily: "inter",
                 fontWeight: "500",
                 fontSize: "14px",
-              }}>Phone Number</p>
+              }}
+            >
+              Phone Number
+            </p>
             <input
               placeholder="Enter your phone number"
               style={{
@@ -249,7 +267,13 @@ function Register() {
       <div style={{ width: "100%" }}>
         <img
           src={image}
-          style={{ maxHeight: "1042px",height:"100%",maxWidth:"782px", width: "100%", objectFit: "fill" }}
+          style={{
+            maxHeight: "1042px",
+            height: "100%",
+            maxWidth: "782px",
+            width: "100%",
+            objectFit: "fill",
+          }}
           alt="Login Illustration"
         />
       </div>

@@ -4,6 +4,7 @@ import Logo from "../../pictures/Group 8.png";
 import "./style.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { deleteCompare } from "../reducers/compare";
+import Issues from "../Issues";
 
 function Compares() {
   const navigate = useNavigate();
@@ -132,30 +133,28 @@ function Compares() {
     oldMasks.map((char) => {
       Object.values(char).forEach((value) => {
         if (value == 1) {
+          disArray[1].shade = true;
           return (disArray[1].color = "#4ddcfb");
         }
         if (value == 2) {
+          disArray[2].shade = true;
           return (disArray[2].color = "#4ef4a8");
         }
         if (value == 3) {
+          disArray[0].shade = true;
           return (disArray[0].color = "#f9c95f");
         }
         if (value == 4) {
+          disArray[3].shade = true;
           return (disArray[3].color = "#805af9");
         }
         if (value == 5) {
+          disArray[4].shade = true;
           return (disArray[4].color = "#f56666");
-        } else {
-          disArray[1].color = "#7abdcd";
-          disArray[4].color = "#d28989";
-          disArray[2].color = "#76cba5";
-          disArray[0].color = "#d5ba81";
-          disArray[3].color = "#9381cf";
         }
       });
     });
   }
-
   const handleCharacterClick = (sentenceIndex, charIndex, char, masks) => {
     const value = masks[sentenceIndex]?.[charIndex];
     if (value) {
@@ -228,7 +227,7 @@ function Compares() {
               color: "#2b1b4c",
             }}
           >
-            Number of Issues: {compare?.length || 0}
+            Number of Issues: <Issues />
           </p>
         </div>
 
@@ -460,7 +459,6 @@ function Compares() {
                       fontFamily: "inter",
                       fontWeight: "400",
                       fontSize: "24px",
-                    
                     }}
                   >
                     {element.new.split("").map((char, charIndex) => (
@@ -508,10 +506,13 @@ function Compares() {
                                 width: "200px",
                               }}
                             >
-                            <span>  {errorType[newMasks[index]?.[charIndex]]}</span>
+                              <span>
+                                {" "}
+                                {errorType[newMasks[index]?.[charIndex]]}
+                              </span>
                             </div>
                           )}
-                          
+
                         {char}
                       </span>
                     ))}
