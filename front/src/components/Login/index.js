@@ -15,7 +15,7 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [remember, setRemember] = useState();
-
+  const [dis,setDis]=useState(false)
   const login = () => {
     if (!username || !password) {
       console.log("Please enter both username and password.");
@@ -61,7 +61,7 @@ const Login = () => {
         setErrorMessage("Login failed. Please check your credentials.");
       });
   };
-
+console.log(dis);
   return (
     <div
       style={{ display: "flex", justifyContent: "space-between", gap: "40px" }}
@@ -91,7 +91,7 @@ const Login = () => {
               fontFamily: "inter",
               fontWeight: "500",
               fontSize: "16px",
-              color: "#000000",
+              color: "#999999",
             }}
           >
             Log in to streamline QA and improve file comparisons.
@@ -120,10 +120,10 @@ const Login = () => {
               onChange={(e) => setUsername(e.target.value.replace(/\s+/g, ""))}
             />
           </div>
-          <div>
+          <div style={{position:"relative"}}>
             <p>Password</p>
             <input
-              type="password"
+              type={dis ? "password": "text"}
               placeholder="Enter your password"
               style={{
                 maxWidth: "404px",
@@ -131,9 +131,11 @@ const Login = () => {
                 height: "35px",
                 borderRadius: "6px",
                 paddingLeft: "10px",
+              
               }}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <span class="password-toggle-icon" style={{height:"20px",width:'20px',position:"absolute",top :"48px",right:"0"}} onClick={()=>{(setDis(!dis))}} ><i class={!dis?"fas fa-eye-slash":"fas fa-eye"}></i></span>
           </div>
           <div
             style={{
@@ -164,6 +166,7 @@ const Login = () => {
                 fontFamily: "inter",
                 fontWeight: "500",
                 fontSize: "14px",
+                color:"#0F3DDE",
               }}
             >
               Forgot password?
@@ -208,7 +211,7 @@ const Login = () => {
       <div style={{ width: "100%" }}>
         <img
           src={image}
-          style={{ height: "100vh", width: "100%", objectFit: "fill" }}
+          style={{ maxHeight: "1042px",height:"100%",maxWidth:"782px", width: "100%", }}
           alt="Login Illustration"
         />
       </div>

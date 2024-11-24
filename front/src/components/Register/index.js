@@ -14,6 +14,7 @@ function Register() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [agree, setAgree] = useState(false);
+  const [dis,setDis]=useState(false)
 
   const register = () => {
     if (!agree) {
@@ -34,6 +35,7 @@ function Register() {
         console.log(result);
         setSuccess(true);
         setErrorMessage("");
+        navigate("/login")
       })
       .catch((err) => {
         console.log(err);
@@ -132,7 +134,7 @@ function Register() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div>
+          <div style={{position:"relative"}}>
             <p
               style={{
                 fontFamily: "inter",
@@ -143,7 +145,7 @@ function Register() {
               Password
             </p>
             <input
-              type="password"
+              type={dis ? "password": "text"}
               placeholder="Enter your password"
               style={{
                 maxWidth: "404px",
@@ -154,6 +156,7 @@ function Register() {
               }}
               onChange={(e) => setPassword(e.target.value)}
             />
+             <span class="password-toggle-icon" style={{height:"20px",width:'20px',position:"absolute",top :"40px",right:"0"}} onClick={()=>{(setDis(!dis))}} ><i class={!dis?"fas fa-eye-slash":"fas fa-eye"}></i></span>
           </div>
 
           <div>
@@ -242,7 +245,7 @@ function Register() {
       <div style={{ width: "100%" }}>
         <img
           src={image}
-          style={{ height: "100vh", width: "100%", objectFit: "fill" }}
+          style={{ maxHeight: "1042px",height:"100%",maxWidth:"782px", width: "100%", objectFit: "fill" }}
           alt="Login Illustration"
         />
       </div>
