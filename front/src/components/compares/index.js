@@ -182,6 +182,7 @@ function Compares() {
       setNewPopupData(null);
     }
   };
+  console.log(compare);
 
   return (
     <>
@@ -459,6 +460,7 @@ function Compares() {
                       fontFamily: "inter",
                       fontWeight: "400",
                       fontSize: "24px",
+                    
                     }}
                   >
                     {element.new.split("").map((char, charIndex) => (
@@ -506,9 +508,10 @@ function Compares() {
                                 width: "200px",
                               }}
                             >
-                              {errorType[newMasks[index]?.[charIndex]]}
+                            <span>  {errorType[newMasks[index]?.[charIndex]]}</span>
                             </div>
                           )}
+                          
                         {char}
                       </span>
                     ))}
@@ -531,7 +534,7 @@ function Compares() {
                       width: "100%",
                       position: "sticky",
                       bottom: "0px",
-                      left: "0",
+                      left: "0px",
                     }
                   : {
                       display: "flex",
@@ -605,7 +608,7 @@ function Compares() {
                     display: "flex",
                     flexWrap: "nowrap",
                     justifyContent: "space-around",
-                    maxWidth: "100rem",
+                    maxWidth: "1088px",
                     width: "100%",
                     fontFamily: "inter",
                     fontWeight: "400",
@@ -629,7 +632,7 @@ function Compares() {
                           key={index}
                           style={{
                             width: "20px",
-                            height: "20px",
+                            height: "15px",
                             backgroundColor: color,
 
                             borderRadius: "50%",

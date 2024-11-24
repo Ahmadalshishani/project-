@@ -187,6 +187,9 @@ console.log(dis);
               border: "0px",
               borderRadius: "10px",
               cursor: "pointer",
+              fontFamily:"inter",
+              fontWeight:"700",
+              fontSize:"14px"
             }}
           >
             Login
@@ -195,7 +198,7 @@ console.log(dis);
             <p style={{ color: "red", marginTop: "10px" }}>{errorMessage}</p>
           )}
 
-          <p>
+          <p style={{fontFamily:"inter",fontWeight:"500",fontSize:"14px",textAlign:"center"}}>
             Don’t have an account?{" "}
             <span
               style={{
