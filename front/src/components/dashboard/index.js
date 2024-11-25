@@ -79,10 +79,32 @@ const Dashboard = () => {
     <>
       {!username && <Navigate to="/login" />}
       <header className="header">
-        <p>Welcome, {username} 👋</p>
+        <p style={{ display: "flex", flexDirection: "column" ,cursor:"default"}}>
+          Welcome, {username} 👋
+          <span
+            style={{
+              width: "59px",
+              height: "19px",
+              fontFamily: "inter",
+              fontWeight: "700",
+              fontSize: "16px",
+              marginTop: "16px",
+              color: "#f9c95f",
+              textDecoration: "underline",
+              cursor:"pointer"
+            }}
+            onClick={()=>{
+              localStorage.clear()
+              sessionStorage.clear()
+              navigate("/login")
+            }}
+          >
+            Log out
+          </span>
+        </p>
         <img src={Logo} alt="Company Logo" />
       </header>
-      <div style={{ maxWidth: "100rem", margin: "auto", width: "90%" }}>
+      <div style={{ maxWidth: "100rem", margin: "auto", width: "90%",cursor:"default" }}>
         <h1 className="head">Click. Compare. Share with Confidence!</h1>
         <div
           style={{

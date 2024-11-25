@@ -187,21 +187,43 @@ function Compares() {
     <>
       {!compare && <Navigate to="/" />}
       <header className="header">
-        <p>Welcome, {username} 👋</p>
+        <p style={{ display: "flex", flexDirection: "column" ,cursor:"default"}}>
+          Welcome, {username} 👋{" "}
+          <span
+            style={{
+              width: "59px",
+              height: "19px",
+              fontFamily: "inter",
+              fontWeight: "700",
+              fontSize: "16px",
+              marginTop: "16px",
+              color: "#f9c95f",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              localStorage.clear();
+              sessionStorage.clear();
+              navigate("/login");
+            }}
+          >
+            Log out
+          </span>
+        </p>
         <img src={Logo} alt="Company Logo" />
       </header>
-      <div style={{ maxWidth: "100rem", marginLeft: "auto", width: "90%" }}>
-        <div style={{ display: "flex", alignItems: "end" }}>
+     
+        <div style={{MaxWidth:"100rem", width:"94%",display: "flex", alignItems: "end" ,marginLeft:"auto"}}>
           <svg
             width="50"
             height="50"
-            viewBox="0 5 50 50"
+            viewBox="0 1 50 50"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             onClick={() => {
               handleBack();
             }}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer",marginBottom:"0" }}
           >
             <path
               d="M10.9375 23.4375H42.1875C42.6019 23.4375 42.9993 23.6021 43.2924 23.8951C43.5854 24.1882 43.75 24.5856 43.75 25C43.75 25.4144 43.5854 25.8118 43.2924 26.1049C42.9993 26.3979 42.6019 26.5625 42.1875 26.5625H10.9375C10.5231 26.5625 10.1257 26.3979 9.83265 26.1049C9.53962 25.8118 9.375 25.4144 9.375 25C9.375 24.5856 9.53962 24.1882 9.83265 23.8951C10.1257 23.6021 10.5231 23.4375 10.9375 23.4375Z"
@@ -213,11 +235,12 @@ function Compares() {
             />
           </svg>
 
-          <h1 className="head" style={{ marginBottom: "0px" }}>
+          <h1 className="head" style={{ marginBottom: "0px" ,maxWidth:"583px",width:"100%",fontFamily:"inter",fontWeight:"600",fontSize:"40px",cursor:"default"}}>
             Small Edits, Big Improvements
           </h1>
         </div>
-        <div style={{ paddingLeft: "50px" }}>
+        <div style={{ maxWidth: "100rem", marginLeft: "auto", width: "90%" }}>
+        <div style={{ paddingLeft: "0" }}>
           <p
             style={{
               marginTop: "0px",
@@ -225,6 +248,7 @@ function Compares() {
               fontWeight: "700",
               fontSize: "24px",
               color: "#2b1b4c",
+              cursor:"default"
             }}
           >
             Number of Issues: <Issues />
@@ -241,12 +265,13 @@ function Compares() {
 
             display: "flex",
             flexDirection: "column",
-            alignItems: "inherit",
+            alignItems: "center",
           }}
         >
           <div
             style={{
               display: "flex",
+              maxWidth:"1088px",width:"100%"
             }}
           >
             <div
@@ -266,6 +291,7 @@ function Compares() {
                   fontSize: "36px",
                   fontWeight: "700",
                   color: "#2b1b4c",
+                  cursor:"default"
                 }}
               >
                 Original
@@ -273,13 +299,14 @@ function Compares() {
             </div>
             <h3
               style={{
-                maxWidth: "188px",
+                maxWidth: "187px",
                 width: "100%",
                 textAlign: "center",
                 fontFamily: "inter",
                 fontSize: "24px",
                 fontWeight: "400",
                 color: "#2b1b4c",
+                cursor:"default"
               }}
             >
               Page/Slide
@@ -301,6 +328,7 @@ function Compares() {
                   fontSize: "36px",
                   fontWeight: "700",
                   color: "#2b1b4c",
+                  cursor:"default"
                 }}
               >
                 Designed
@@ -536,6 +564,7 @@ function Compares() {
                       position: "sticky",
                       bottom: "0px",
                       left: "0px",
+                      cursor:"pointer"
                     }
                   : {
                       display: "flex",
@@ -547,6 +576,7 @@ function Compares() {
                       position: "sticky",
                       bottom: "0px",
                       left: "0",
+                      cursor:"pointer"
                     }
               }
             >

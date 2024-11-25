@@ -15,7 +15,7 @@ const Login = () => {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [remember, setRemember] = useState();
-  const [dis, setDis] = useState(false);
+  const [dis, setDis] = useState(true);
   const login = () => {
     if (!username || !password) {
       console.log("Please enter both username and password.");
@@ -64,13 +64,14 @@ const Login = () => {
   console.log(dis);
   return (
     <div
-      style={{ display: "flex", justifyContent: "space-between", gap: "40px" }}
+      style={{ display: "flex", justifyContent: "space-between",  }}
     >
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          maxWidth:"754px",
           width: "100%",
           justifyContent: "center",
         }}
@@ -82,6 +83,7 @@ const Login = () => {
               fontSize: "32px",
               fontWeight: "500",
               fontFamily: "inter",
+              cursor:"default",
             }}
           >
             Welcome!
@@ -92,6 +94,7 @@ const Login = () => {
               fontWeight: "500",
               fontSize: "16px",
               color: "#999999",
+              cursor:"default",
             }}
           >
             Log in to streamline QA and improve file comparisons.
@@ -104,6 +107,7 @@ const Login = () => {
                 fontWeight: "500",
                 fontSize: "14px",
                 marginTop: "29px",
+                cursor:"default",
               }}
             >
               Email Address
@@ -116,6 +120,7 @@ const Login = () => {
                 height: "35px",
                 borderRadius: "6px",
                 paddingLeft: "10px",
+                cursor:"default",
               }}
               onChange={(e) => setUsername(e.target.value.replace(/\s+/g, ""))}
             />
@@ -127,6 +132,7 @@ const Login = () => {
                 fontWeight: "500",
                 fontSize: "14px",
                 marginTop: "29px",
+                cursor:"default",
               }}
             >
               Password
@@ -139,7 +145,8 @@ const Login = () => {
                 width: "100%",
                 height: "35px",
                 borderRadius: "6px",
-                paddingLeft: "10px",
+                paddingLeft: "10px"
+                ,cursor:"default",
               }}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -156,7 +163,7 @@ const Login = () => {
                 setDis(!dis);
               }}
             >
-              <i class={!dis ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+              <i class={!dis ? "fas fa-eye-slash" : "fas fa-eye"} style={{cursor:"pointer",}}></i>
             </span>
           </div>
           <div
@@ -169,8 +176,9 @@ const Login = () => {
             <div style={{ display: "flex", alignItems: "center" }}>
               <input
                 type="checkbox"
-                style={{ height: "24px", width: "24px" }}
+                style={{ height: "24px", width: "24px" ,cursor:"pointer"}}
                 onChange={(e) => setRemember(e.target.value)}
+                
               />
               <p
                 style={{
@@ -178,6 +186,7 @@ const Login = () => {
                   fontFamily: "inter",
                   fontWeight: "500",
                   fontSize: "14px",
+                  cursor:"default",
                 }}
               >
                 Remember me
@@ -189,7 +198,10 @@ const Login = () => {
                 fontWeight: "500",
                 fontSize: "14px",
                 color: "#0F3DDE",
+                cursor:"pointer",
+                
               }}
+              onClick={()=>{navigate("/forgotten")}}
             >
               Forgot password?
             </p>
@@ -221,6 +233,7 @@ const Login = () => {
               fontWeight: "500",
               fontSize: "14px",
               textAlign: "center",
+              cursor:"default",
             }}
           >
             Don’t have an account?{" "}
@@ -240,14 +253,16 @@ const Login = () => {
           </p>
         </div>
       </div>
-      <div style={{ width: "100%" }}>
+      <div style={{maxWidth:"782px", width: "100%",height:"100vh",overflow:"hidden" }}>
         <img
           src={image}
           style={{
-            maxHeight: "1042px",
-            height: "100%",
+           
             maxWidth: "782px",
             width: "100%",
+            objectFit:"cover",
+            height:"100%",
+            objectPosition:"top left"
           }}
           alt="Login Illustration"
         />

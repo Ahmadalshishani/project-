@@ -14,7 +14,7 @@ function Register() {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [agree, setAgree] = useState(false);
-  const [dis, setDis] = useState(false);
+  const [dis, setDis] = useState(true);
 
   const register = () => {
     if (!agree) {
@@ -60,6 +60,7 @@ function Register() {
         <div>
           <div style={{ display: "flex", alignItems: "center" }}>
             <svg
+            cursor={"pointer"}
               width="50"
               height="50"
               viewBox="0 0 50 50"
@@ -68,6 +69,7 @@ function Register() {
               onClick={() => {
                 navigate("/login");
               }}
+             
             >
               <path
                 d="M10.9375 23.4375H42.1875C42.6019 23.4375 42.9993 23.6021 43.2924 23.8951C43.5854 24.1882 43.75 24.5856 43.75 25C43.75 25.4144 43.5854 25.8118 43.2924 26.1049C42.9993 26.3979 42.6019 26.5625 42.1875 26.5625H10.9375C10.5231 26.5625 10.1257 26.3979 9.83265 26.1049C9.53962 25.8118 9.375 25.4144 9.375 25C9.375 24.5856 9.53962 24.1882 9.83265 23.8951C10.1257 23.6021 10.5231 23.4375 10.9375 23.4375Z"
@@ -85,6 +87,7 @@ function Register() {
                 fontSize: "32px",
                 fontWeight: "500",
                 fontFamily: "inter",
+                cursor:"default",
               }}
             >
               Sign Up to Compare
@@ -96,6 +99,7 @@ function Register() {
                 fontFamily: "inter",
                 fontWeight: "500",
                 fontSize: "14px",
+                cursor:"default",
               }}
             >
               Name
@@ -108,6 +112,7 @@ function Register() {
                 height: "35px",
                 borderRadius: "6px",
                 paddingLeft: "10px",
+                cursor:"default",
               }}
               onChange={(e) => setName(e.target.value)}
             />
@@ -118,6 +123,7 @@ function Register() {
                 fontFamily: "inter",
                 fontWeight: "500",
                 fontSize: "14px",
+                cursor:"default",
               }}
             >
               Email Address
@@ -130,6 +136,7 @@ function Register() {
                 height: "35px",
                 borderRadius: "6px",
                 paddingLeft: "10px",
+                cursor:"default",
               }}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -140,6 +147,7 @@ function Register() {
                 fontFamily: "inter",
                 fontWeight: "500",
                 fontSize: "14px",
+                cursor:"default",
               }}
             >
               Password
@@ -153,6 +161,7 @@ function Register() {
                 height: "35px",
                 borderRadius: "6px",
                 paddingLeft: "10px",
+                cursor:"default",
               }}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -164,6 +173,7 @@ function Register() {
                 position: "absolute",
                 top: "40px",
                 right: "0",
+                cursor:"pointer",
               }}
               onClick={() => {
                 setDis(!dis);
@@ -179,6 +189,7 @@ function Register() {
                 fontFamily: "inter",
                 fontWeight: "500",
                 fontSize: "14px",
+                cursor:"default",
               }}
             >
               Company Name
@@ -191,6 +202,7 @@ function Register() {
                 height: "35px",
                 borderRadius: "6px",
                 paddingLeft: "10px",
+                cursor:"default",
               }}
               onChange={(e) => setCompany(e.target.value)}
             />
@@ -201,6 +213,7 @@ function Register() {
                 fontFamily: "inter",
                 fontWeight: "500",
                 fontSize: "14px",
+                cursor:"default",
               }}
             >
               Phone Number
@@ -213,6 +226,7 @@ function Register() {
                 height: "35px",
                 borderRadius: "6px",
                 paddingLeft: "10px",
+                cursor:"default",
               }}
               onChange={(e) => setPhone(e.target.value)}
             />
@@ -227,7 +241,7 @@ function Register() {
             <div style={{ display: "flex", alignItems: "center" }}>
               <input
                 type="checkbox"
-                style={{ height: "24px", width: "24px" }}
+                style={{ height: "24px", width: "24px" ,cursor:"pointer",}}
                 onChange={(e) => setAgree(e.target.value)}
               />
               <p
@@ -236,6 +250,7 @@ function Register() {
                   fontFamily: "inter",
                   fontWeight: "500",
                   fontSize: "14",
+                  cursor:"default",
                 }}
               >
                 I agree to the terms & policy

@@ -5,6 +5,7 @@ import Compares from "../components/compares";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Congrats from "../components/Congrats";
+import Forget from "../components/ForgetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
+      {
+        path:"forgotten",
+        element:<Forget/>
+      }
     ],
   },
 ]);

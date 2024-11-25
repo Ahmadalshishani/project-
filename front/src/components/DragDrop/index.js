@@ -61,6 +61,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
+      onClick={handleParagraphClick}
     >
       {/* Optional label */}
       {label && (
@@ -104,7 +105,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
           <Cloud />
 
           <p
-            onClick={handleParagraphClick}
+           
             style={{
               margin: "0",
               color: "#484848",
