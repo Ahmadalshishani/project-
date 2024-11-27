@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Cloud from "../../assest/Cloud";
 import Cross from "../../assest/Cross";
 
-function DragAndDropFileUpload({ onFileUpload, label }) {
+function DragAndDropFileUpload({ onFileUpload, label ,backLable}) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null); // Reference to the hidden file input
@@ -113,7 +113,7 @@ function DragAndDropFileUpload({ onFileUpload, label }) {
               cursor: "pointer",
             }}
           >
-            Drag and drop a file here, or click this text to select a file
+           {backLable}
           </p>
         </div>
       )}

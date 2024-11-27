@@ -64,7 +64,7 @@ const Login = () => {
   console.log(dis);
   return (
     <div
-      style={{ display: "flex", justifyContent: "space-between",  }}
+      style={{ display: "flex", justifyContent: "space-between", margin:"0 auto" }}
     >
       <div
         style={{

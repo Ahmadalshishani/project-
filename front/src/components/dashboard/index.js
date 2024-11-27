@@ -79,7 +79,7 @@ const Dashboard = () => {
     <>
       {!username && <Navigate to="/login" />}
       <header className="header">
-        <p style={{ display: "flex", flexDirection: "column" ,cursor:"default"}}>
+        <p style={{ display: "flex", flexDirection: "column" ,cursor:"default",fontFamily:"inter",fontWeight:"900",fontSize:"36px"}}>
           Welcome, {username} 👋
           <span
             style={{
@@ -105,7 +105,8 @@ const Dashboard = () => {
         <img src={Logo} alt="Company Logo" />
       </header>
       <div style={{ maxWidth: "100rem", margin: "auto", width: "90%",cursor:"default" }}>
-        <h1 className="head">Click. Compare. Share with Confidence!</h1>
+        <h1 className="head" style={{fontFamily:"inter",fontWeight:"600",fontSize:"40px"}}>Click. Compare. Share with Confidence!</h1>
+        
         <div
           style={{
             display: "grid",
@@ -118,17 +119,18 @@ const Dashboard = () => {
             style={dis ? { display: "inline-block" } : { display: "none" }}
           ></span>
           <div style={{ width: "100%" }}>
-            <h3 style={{ fontSize: "20px", fontWeight: "600" }}>
+            <h3 style={{ fontSize: "20px", fontWeight: "600",fontFamily:"inter" }}>
               Upload Original File
             </h3>
             <hr />
             <DragDrop
               onFileUpload={(file) => handleFileUpload(file, "original")}
-              style={{ margin: "33px", backgroundcolor: "black" }}
+              style={{ margin: "33px", backgroundcolor: "black" ,fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}
+              backLable={"Drag or upload the original file for comparison."}
             />
-            <p>Formats accepted are .ppx and .pdf</p>
+            <p style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}>Formats accepted are .ppx , .pdf and docx</p>
             <div>
-              <p style={{ margin: "0px", color: "#0083A0" }}>
+              <p style={{ margin: "0px", color: "#0083A0" ,fontFamily:"sticky notes",fontWeight:"400",fontSize:"24px"}}>
                 This is the original file provided by the client.
               </p>
               <svg
@@ -167,6 +169,7 @@ const Dashboard = () => {
               style={{
                 fontSize: "20px",
                 fontWeight: "600",
+                fontFamily:"inter"
               }}
             >
               Upload Design File
@@ -174,11 +177,13 @@ const Dashboard = () => {
             <hr style={{ borderColor: "#E3E3E3" }} />
             <DragDrop
               onFileUpload={(file) => handleFileUpload(file, "design")}
+              style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}
+              backLable={"Drag or upload the edited file for validation."}
             />
-            <p>Formats accepted are .ppx and .pdf</p>
+            <p style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}>Formats accepted are .ppx , .pdf and docx</p>
             <div>
-              <p style={{ margin: "0px", color: "#946600" }}>
-                This is the original file provided by the client.
+              <p style={{ margin: "0px", color: "#946600" ,fontFamily:"sticky notes",fontWeight:"400",fontSize:"24px"}}>
+              This is the updated file designed by Prezlab.
               </p>
               <svg
                 width="298"
@@ -195,7 +200,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <p style={{ color: "#9D9D9D", fontSize: "16px", fontWeight: "400" }}>
+        <p style={{ color: "#9D9D9D", fontSize: "16px", fontWeight: "400",fontFamily:"inter" }}>
           Disclaimer: We use a closed-system AI-powered technology to check
           files. All information remains secure and private, with no external
           sharing
@@ -209,6 +214,7 @@ const Dashboard = () => {
             handleSubmit();
             setDis(!dis);
           }}
+          style={{fontFamily:"inter",fontWeight:"700",fontSize:"24px"}}
         >
           Compare files now
         </button>
