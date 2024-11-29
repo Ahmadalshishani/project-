@@ -466,7 +466,7 @@ function Compares() {
                                 padding: "10px 10px",
                                 position: "absolute",
                                 top: "-50px",
-                                left: "-100px",
+                                left: "0",
                                 backgroundColor: "#2b1b4c",
                                 zIndex: "99999",
                                 color: "white",

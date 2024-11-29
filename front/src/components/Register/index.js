@@ -46,15 +46,17 @@ function Register() {
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "space-between", gap: "40px" }}
+      style={{ display: "flex", justifyContent: "center", gap: "40px" }}
     >
-      <div
+      <div className="block"
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           width: "100%",
           justifyContent: "center",
+          maxWidth: "754px",
+          width: "100%",
         }}
       >
         <div>
@@ -279,15 +281,22 @@ function Register() {
           )}
         </div>
       </div>
-      <div style={{ width: "100%" }}>
+      <div
+        className="img"
+        style={{
+          width: "1100px",
+          height: "100vh",
+          maxHeight: "1440px",
+          overflow: "hidden",
+        }}
+      >
         <img
           src={image}
           style={{
-            maxHeight: "1042px",
-            height: "100%",
-            maxWidth: "782px",
             width: "100%",
-            objectFit: "fill",
+            objectFit: "cover",
+            height: "100%",
+            objectPosition: "top left",
           }}
           alt="Login Illustration"
         />
