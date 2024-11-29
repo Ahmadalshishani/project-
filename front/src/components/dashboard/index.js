@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import "./style.css";
 import Logo from "../../pictures/Group 8.png";
 import DragDrop from "../DragDrop/index";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { setCompare } from "../reducers/compare";
 import { useNavigate, Navigate } from "react-router-dom";
 
-const baseUrl = "http://194.242.57.64:5000";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -23,11 +22,6 @@ const Dashboard = () => {
   // State to manage files
   const [originalFile, setOriginalFile] = useState(null);
   const [designFile, setDesignFile] = useState(null);
-  const { compare } = useSelector((state) => {
-    return {
-      compare: state.compare.comparing,
-    };
-  });
   // API endpoint
   const baseUrl = "http://194.242.57.64:5000";
 
@@ -102,12 +96,12 @@ const Dashboard = () => {
             Log out
           </span>
         </p>
-        <img src={Logo} alt="Company Logo" />
+        <img id="logo" src={Logo} alt="Company Logo"  />
       </header>
       <div style={{ maxWidth: "100rem", margin: "auto", width: "90%",cursor:"default" }}>
         <h1 className="head" style={{fontFamily:"inter",fontWeight:"600",fontSize:"40px"}}>Click. Compare. Share with Confidence!</h1>
         
-        <div
+        <div id="drag"
           style={{
             display: "grid",
             gridTemplateColumns: "auto auto auto",
@@ -133,7 +127,7 @@ const Dashboard = () => {
               <p style={{ margin: "0px", color: "#0083A0" ,fontFamily:"sticky notes",fontWeight:"400",fontSize:"24px"}}>
                 This is the original file provided by the client.
               </p>
-              <svg
+              <svg 
                 width="307"
                 height="6"
                 viewBox="0 0 307 6"
@@ -147,7 +141,7 @@ const Dashboard = () => {
               </svg>
             </div>
           </div>
-          <div style={{ textAlign: "center" }}>
+          <div className="center" style={{ textAlign: "center" }}>
             <svg
               width="3"
               height="324"

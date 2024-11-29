@@ -219,7 +219,7 @@ function Compares() {
             Log out
           </span>
         </p>
-        <img src={Logo} alt="Company Logo" />
+        <img id="logo" src={Logo} alt="Company Logo" />
       </header>
       <div style={{ maxWidth: "100rem",  width: "90%" ,margin:"0 auto",alignItems:"center"}}>
       <div
