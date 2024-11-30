@@ -46,17 +46,16 @@ function Register() {
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "center", gap: "40px" }}
+      style={{ display: "flex", justifyContent: "center", }}
     >
       <div className="block"
         style={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "100%",
+          width: "50%",
           justifyContent: "center",
-          maxWidth: "754px",
-          width: "100%",
+        
         }}
       >
         <div>
@@ -284,9 +283,8 @@ function Register() {
       <div
         className="img"
         style={{
-          width: "1100px",
+          width: "50%",
           height: "100vh",
-          maxHeight: "1440px",
           overflow: "hidden",
         }}
       >
