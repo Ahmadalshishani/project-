@@ -73,8 +73,8 @@ const Login = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          maxWidth: "754px",
-          width: "100%",
+          
+          width: "50%",
           justifyContent: "center",
         }}
       >
@@ -261,9 +261,9 @@ const Login = () => {
       <div
         className="img"
         style={{
-          width: "1100px",
+          width: "50%",
           height: "100vh",
-          maxHeight: "1440px",
+      
           overflow: "hidden",
         }}
       >
