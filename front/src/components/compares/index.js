@@ -5,6 +5,7 @@ import "./style.css";
 import { Navigate, useNavigate } from "react-router-dom";
 import { deleteCompare } from "../reducers/compare";
 import Issues from "../Issues";
+import WordMap from "../WordMap";
 
 function Compares() {
   const navigate = useNavigate();
@@ -15,8 +16,6 @@ function Compares() {
   const [dis, setDis] = useState(false);
   const username =
     localStorage.getItem("userName") || sessionStorage.getItem("userName");
-  const [popupData, setPopupData] = useState(null);
-  const [newPopupData, setNewPopupData] = useState(null);
   const disArray = [
     {
       text: "Double Spacing",
@@ -44,20 +43,7 @@ function Compares() {
       shade: false,
     },
   ];
-  const colorMap = {
-    1: "#4ddcfb",
-    2: "#4ef4a8",
-    3: "#f9c95f",
-    4: "#805af9",
-    5: "#f56666",
-  };
-  const errorType = {
-    1: "Content error",
-    2: "formatting issues",
-    3: "Double spacing",
-    4: "Bullet points",
-    5: "Uppercase/Lowercase Discrepancies",
-  };
+
   const handleBack = () => {
     dispatch(deleteCompare());
     navigate("/");
@@ -84,24 +70,7 @@ function Compares() {
   const oldMasks = compare?.map((item) =>
     item.old_mask ? parseMask(item.old_mask) : {}
   );
-  const newBold = compare?.map((item) =>
-    item.new_bold ? parseMask(item.new_bold) : {}
-  );
-  const oldBold = compare?.map((item) =>
-    item.old_bold ? parseMask(item.old_bold) : {}
-  );
-  const newItalic = compare?.map((item) =>
-    item.new_italic ? parseMask(item.new_italic) : {}
-  );
-  const oldItalic = compare?.map((item) =>
-    item.old_italic ? parseMask(item.old_italic) : {}
-  );
-  const newUnderline = compare?.map((item) =>
-    item.new_underline ? parseMask(item.new_underline) : {}
-  );
-  const oldUnderLline = compare?.map((item) =>
-    item.old_underline ? parseMask(item.old_underline) : {}
-  );
+
   if (newMasks) {
     newMasks.map((char) => {
       Object.values(char).forEach((value) => {
@@ -155,33 +124,6 @@ function Compares() {
       });
     });
   }
-  const handleCharacterClick = (sentenceIndex, charIndex, char, masks) => {
-    const value = masks[sentenceIndex]?.[charIndex];
-    if (value) {
-      setPopupData({
-        sentenceIndex,
-        charIndex,
-        char,
-        value,
-      });
-    } else {
-      setPopupData(null);
-    }
-  };
-  const handleCharacterHover = (sentenceIndex, charIndex, char) => {
-    const value = newMasks[sentenceIndex]?.[charIndex];
-    if (value) {
-      setNewPopupData({
-        sentenceIndex,
-        charIndex,
-        char,
-        value,
-      });
-    } else {
-      setNewPopupData(null);
-    }
-  };
-  console.log(compare);
 
   return (
     <>
@@ -221,53 +163,59 @@ function Compares() {
         </p>
         <img id="logo" src={Logo} alt="Company Logo" />
       </header>
-      <div style={{ maxWidth: "100rem",  width: "90%" ,margin:"0 auto",alignItems:"center"}}>
-      <div
+      <div className="page_com"
         style={{
-          MaxWidth: "100rem",
-          width: "94%",
-          display: "flex",
-          alignItems: "end",
-       
+          maxWidth: "100rem",
+          width: "90%",
+          margin: "0 auto",
+          alignItems: "center",
         }}
       >
-        <svg
-          width="50"
-          height="50"
-          viewBox="0 1 50 50"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={() => {
-            handleBack();
-          }}
-          style={{ cursor: "pointer", marginBottom: "0" }}
-        >
-          <path
-            d="M10.9375 23.4375H42.1875C42.6019 23.4375 42.9993 23.6021 43.2924 23.8951C43.5854 24.1882 43.75 24.5856 43.75 25C43.75 25.4144 43.5854 25.8118 43.2924 26.1049C42.9993 26.3979 42.6019 26.5625 42.1875 26.5625H10.9375C10.5231 26.5625 10.1257 26.3979 9.83265 26.1049C9.53962 25.8118 9.375 25.4144 9.375 25C9.375 24.5856 9.53962 24.1882 9.83265 23.8951C10.1257 23.6021 10.5231 23.4375 10.9375 23.4375Z"
-            fill="black"
-          />
-          <path
-            d="M11.5844 25L24.5437 37.9563C24.8371 38.2497 25.002 38.6476 25.002 39.0625C25.002 39.4774 24.8371 39.8754 24.5437 40.1688C24.2503 40.4622 23.8524 40.627 23.4375 40.627C23.0226 40.627 22.6246 40.4622 22.3312 40.1688L8.26874 26.1063C8.12323 25.9611 8.00778 25.7887 7.92901 25.5989C7.85024 25.409 7.80969 25.2055 7.80969 25C7.80969 24.7945 7.85024 24.591 7.92901 24.4012C8.00778 24.2113 8.12323 24.0389 8.26874 23.8938L22.3312 9.83127C22.6246 9.53787 23.0226 9.37305 23.4375 9.37305C23.8524 9.37305 24.2503 9.53787 24.5437 9.83127C24.8371 10.1247 25.002 10.5226 25.002 10.9375C25.002 11.3524 24.8371 11.7504 24.5437 12.0438L11.5844 25Z"
-            fill="black"
-          />
-        </svg>
-
-        <h1
-          className="head"
+        <div
           style={{
-            marginBottom: "0px",
-            maxWidth: "583px",
-            width: "100%",
-            fontFamily: "inter",
-            fontWeight: "600",
-            fontSize: "40px",
-            cursor: "default",
+            MaxWidth: "100rem",
+            width: "94%",
+            display: "flex",
+            alignItems: "end",
           }}
         >
-          Small Edits, Big Improvements
-        </h1>
-      </div>
-      
+          <svg
+            width="50"
+            height="50"
+            viewBox="0 1 50 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            onClick={() => {
+              handleBack();
+            }}
+            style={{ cursor: "pointer", marginBottom: "0" }}
+          >
+            <path
+              d="M10.9375 23.4375H42.1875C42.6019 23.4375 42.9993 23.6021 43.2924 23.8951C43.5854 24.1882 43.75 24.5856 43.75 25C43.75 25.4144 43.5854 25.8118 43.2924 26.1049C42.9993 26.3979 42.6019 26.5625 42.1875 26.5625H10.9375C10.5231 26.5625 10.1257 26.3979 9.83265 26.1049C9.53962 25.8118 9.375 25.4144 9.375 25C9.375 24.5856 9.53962 24.1882 9.83265 23.8951C10.1257 23.6021 10.5231 23.4375 10.9375 23.4375Z"
+              fill="black"
+            />
+            <path
+              d="M11.5844 25L24.5437 37.9563C24.8371 38.2497 25.002 38.6476 25.002 39.0625C25.002 39.4774 24.8371 39.8754 24.5437 40.1688C24.2503 40.4622 23.8524 40.627 23.4375 40.627C23.0226 40.627 22.6246 40.4622 22.3312 40.1688L8.26874 26.1063C8.12323 25.9611 8.00778 25.7887 7.92901 25.5989C7.85024 25.409 7.80969 25.2055 7.80969 25C7.80969 24.7945 7.85024 24.591 7.92901 24.4012C8.00778 24.2113 8.12323 24.0389 8.26874 23.8938L22.3312 9.83127C22.6246 9.53787 23.0226 9.37305 23.4375 9.37305C23.8524 9.37305 24.2503 9.53787 24.5437 9.83127C24.8371 10.1247 25.002 10.5226 25.002 10.9375C25.002 11.3524 24.8371 11.7504 24.5437 12.0438L11.5844 25Z"
+              fill="black"
+            />
+          </svg>
+
+          <h1
+            className="head"
+            style={{
+              marginBottom: "0px",
+              maxWidth: "583px",
+              width: "100%",
+              fontFamily: "inter",
+              fontWeight: "600",
+              fontSize: "40px",
+              cursor: "default",
+            }}
+          >
+            Small Edits, Big Improvements
+          </h1>
+        </div>
+
         <div style={{ paddingLeft: "0" }}>
           <p
             style={{
@@ -277,7 +225,7 @@ function Compares() {
               fontSize: "24px",
               color: "#2b1b4c",
               cursor: "default",
-              marginLeft:"50px"
+              marginLeft: "50px",
             }}
           >
             Number of Issues: <Issues />
@@ -291,7 +239,7 @@ function Compares() {
             maxWidth: "1250",
             width: "100%",
             borderTop: "0.5px solid #8b8b8b",
-            marginLeft:"50px",
+            marginLeft: "50px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -301,7 +249,7 @@ function Compares() {
             style={{
               display: "flex",
               maxWidth: "1250px",
-              width: "100%",
+              width: "90%",
             }}
           >
             <div
@@ -313,7 +261,6 @@ function Compares() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-
               }}
             >
               {" "}
@@ -356,7 +303,7 @@ function Compares() {
                 cursor: "default",
               }}
             >
-              Page/Slide
+             <span className="page_num"> Page/Slide</span>
             </h3>
             <div
               style={{
@@ -398,14 +345,14 @@ function Compares() {
               </svg>
             </div>
           </div>
-          <div className="box" style={{ maxWidth: "1250px" ,width:"100%",}}>
+          <div className="box" style={{ maxWidth: "1250px", width: "100%" }}>
             {compare?.map((element, index) => (
               <div
                 key={index}
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  position:"relative"
+                  position: "relative",
                 }}
               >
                 {/* Old File Mapping */}
@@ -418,69 +365,22 @@ function Compares() {
                     borderRight: "0.5px solid #8b8b8b",
                     paddingBottom: "52px",
                     paddingTop: "50px",
+                    fontFamily: "inter",
+                    fontWeight: "400",
+                    fontSize: "24px",
+                    lineHeight: "1.5",
+                    position: "relative",
+                    wordWrap: "break-word",
                   }}
                 >
-                  {" "}
-                  <div
-                    className="old"
-                    style={{
-                      fontFamily: "inter",
-                      fontWeight: "400",
-                      fontSize: "24px",
-                    }}
-                  >
-                    {element.old.split("").map((char, charIndex) => (
-                      <span
-                        key={charIndex}
-                        onPointerOver={() =>
-                          handleCharacterClick(index, charIndex, char, oldMasks)
-                        }
-                        onPointerLeave={() => {
-                          setPopupData(null);
-                        }}
-                        style={{
-                          position: "relative",
-                          backgroundColor:
-                            colorMap[oldMasks[index]?.[charIndex]] || "white",
-                          cursor: oldMasks[index]?.[charIndex]
-                            ? "pointer"
-                            : "default",
-                          fontWeight: oldBold[index]?.[charIndex]
-                            ? "900"
-                            : "400",
-                          fontStyle: oldItalic[index]?.[charIndex]
-                            ? "italic"
-                            : "normal",
-                          textDecoration: oldUnderLline[index]?.[charIndex]
-                            ? "underline"
-                            : "none",
-                        }}
-                      >
-                        {popupData &&
-                          popupData.sentenceIndex === index &&
-                          popupData.charIndex === charIndex && (
-                            <div
-                              className="popup"
-                              style={{
-                                borderRadius: "15px",
-                                padding: "10px 10px",
-                                position: "absolute",
-                                top: "-50px",
-                                left: "0",
-                                backgroundColor: "#2b1b4c",
-                                zIndex: "99999",
-                                color: "white",
-                                width: "200px",
-                                fontWeight: "400 !important",
-                              }}
-                            >
-                              {errorType[oldMasks[index]?.[charIndex]]}
-                            </div>
-                          )}
-                        {char}
-                      </span>
-                    ))}
-                  </div>
+                  <WordMap
+                    sentence={element.old}
+                    index={index}
+                    mask={element.old_mask}
+                    bold={element.old_bold}
+                    italic={element.old_italic}
+                    underline={element.old_underline}
+                  />
                 </div>
 
                 <div
@@ -494,7 +394,6 @@ function Compares() {
                     paddingTop: "50px",
                   }}
                 >
-                  {" "}
                   <div
                     className="oldPage"
                     style={{
@@ -534,6 +433,7 @@ function Compares() {
                   </div>
                 </div>
                 {/* New File Mapping */}
+
                 <div
                   style={{
                     maxWidth: "450px",
@@ -542,73 +442,22 @@ function Compares() {
                     borderBottom: "0.5px solid #8b8b8b",
                     paddingBottom: "52px",
                     paddingTop: "50px",
+                    fontFamily: "inter",
+                    fontWeight: "400",
+                    fontSize: "24px",
+                    lineHeight: "1.5",
+                    position: "relative",
+                    wordWrap: "break-word",
                   }}
                 >
-                  {" "}
-                  <div
-                    className="new"
-                    style={{
-                      fontFamily: "inter",
-                      fontWeight: "400",
-                      fontSize: "24px",
-                    }}
-                  >
-                    {element.new.split("").map((char, charIndex) => (
-                      <span
-                        key={charIndex}
-                        onPointerOver={() => {
-                          setNewPopupData(null);
-                          handleCharacterHover(index, charIndex, char);
-                        }}
-                        onPointerLeave={() => {
-                          setNewPopupData(null);
-                        }}
-                        style={{
-                   
-                          backgroundColor:
-                            colorMap[newMasks[index]?.[charIndex]] || "white",
-                          cursor: newMasks[index]?.[charIndex]
-                            ? "pointer"
-                            : "default",
-                          fontWeight: newBold[index]?.[charIndex]
-                            ? "900"
-                            : "400",
-                          fontStyle: newItalic[index]?.[charIndex]
-                            ? "italic"
-                            : "inter",
-                          textDecoration: newUnderline[index]?.[charIndex]
-                            ? "underline"
-                            : "none",
-                        }}
-                      >
-                        {newPopupData &&
-                          newPopupData.sentenceIndex === index &&
-                          newPopupData.charIndex === charIndex && (
-                            <div
-                              className="popup"
-                              style={{
-                                borderRadius: "15px",
-                                padding: "10px 10px",
-       
-                                top: "-50px",
-                                left: "-100px",
-                                backgroundColor: "#2b1b4c",
-                                zIndex: "99999",
-                                color: "white",
-                                width: "200px",
-                              }}
-                            >
-                              <span>
-                                {" "}
-                                {errorType[newMasks[index]?.[charIndex]]}
-                              </span>
-                            </div>
-                          )}
-
-                        {char}
-                      </span>
-                    ))}
-                  </div>
+                  <WordMap
+                    sentence={element.new}
+                    index={index}
+                    mask={element.new_mask}
+                    bold={element.new_bold}
+                    italic={element.new_italic}
+                    underline={element.new_underline}
+                  />
                 </div>
               </div>
             ))}
@@ -627,8 +476,8 @@ function Compares() {
                       width: "100%",
                       position: "sticky",
                       bottom: "0px",
-                      left: "0px",
                       cursor: "pointer",
+                      zIndex: 2,
                     }
                   : {
                       display: "flex",
@@ -641,10 +490,11 @@ function Compares() {
                       bottom: "0px",
                       left: "0",
                       cursor: "pointer",
+                      zIndex: "2",
                     }
               }
             >
-              <div
+              <div className="tool_button"
                 style={{
                   width: "112px",
                   height: "46px",
@@ -698,10 +548,10 @@ function Compares() {
                 <p style={{ margin: "0px" }}>Tool Legend</p>
               </div>
               {dis && (
-                <div
+                <div className="legend"
                   style={{
                     display: "flex",
-                    justifyContent:"space-evenly",
+                    justifyContent: "space-evenly",
                     maxWidth: "1250px",
                     width: "100%",
                     backgroundColor: "#e5e2e2",
@@ -712,35 +562,43 @@ function Compares() {
                   {disArray.map((element, index) => {
                     const { color, text, shade } = element;
                     return (
-                     <div style={{display:"flex",alignItems:"center",flexWrap:"nowrap",whiteSpace:"nowrap"}}> <div
-                      key={index}
-                      style={{
-                        maxWidth: "20px",
-                        width: "20px",
-                        maxHeight: "20px",
-                        height: "100%",
-                        backgroundColor: color,
-
-                        borderRadius: "50%",
-                        display: "inline-block",
-                        marginRight: "2px",
-                        marginLeft: "5px",
-                      }}
-                    >
-                      {" "}
-                    </div> <p
+                      <div className="tool"
                         style={{
                           display: "flex",
-                          color: shade ? "#000000" : "#999999",
-                          fontFamily: "inter",
-                          fontWeight: "400",
-                          fontSize: "15px",
-                
+                          alignItems: "center",
+                          flexWrap: "nowrap",
+                          whiteSpace: "normal",
                         }}
                       >
-                        
-                        {text}
-                      </p></div>
+                        {" "}
+                        <div className ="circle"
+                          key={index}
+                          style={{
+                            maxWidth: "20px",
+                            width: "20px",
+                            maxHeight: "20px",
+                            height: "100%",
+                            backgroundColor: color,
+                            borderRadius: "50%",
+                            display: "inline-block",
+                            marginRight: "2px",
+                            marginLeft: "5px",
+                          }}
+                        >
+                          {" "}
+                        </div>{" "}
+                        <p
+                          style={{
+                            display: "flex",
+                            color: shade ? "#000000" : "#999999",
+                            fontFamily: "inter",
+                            fontWeight: "400",
+                            fontSize: "15px",
+                          }}
+                        >
+                          {text}
+                        </p>
+                      </div>
                     );
                   })}
                 </div>

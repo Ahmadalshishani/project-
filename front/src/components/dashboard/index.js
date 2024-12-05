@@ -119,10 +119,10 @@ const Dashboard = () => {
             <hr />
             <DragDrop
               onFileUpload={(file) => handleFileUpload(file, "original")}
-              style={{ margin: "33px", backgroundcolor: "black" ,fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}
+              style={{ margin: "33px", backgroundcolor: "black" ,fontFamily:"inter",fontWeight:"400",fontSize:"16px",}}
               backLable={"Drag or upload the original file for comparison."}
             />
-            <p style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}>Formats accepted are .ppx , .pdf and docx</p>
+            <p style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}>Formats accepted are .pptx , .pdf and .docx</p>
             <div>
               <p style={{ margin: "0px", color: "#0083A0" ,fontFamily:"sticky notes",fontWeight:"400",fontSize:"24px"}}>
                 This is the original file provided by the client.
@@ -174,7 +174,7 @@ const Dashboard = () => {
               style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}
               backLable={"Drag or upload the edited file for validation."}
             />
-            <p style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}>Formats accepted are .ppx , .pdf and docx</p>
+            <p style={{fontFamily:"inter",fontWeight:"400",fontSize:"16px"}}>Formats accepted are .pptx , .pdf and .docx</p>
             <div>
               <p style={{ margin: "0px", color: "#946600" ,fontFamily:"sticky notes",fontWeight:"400",fontSize:"24px"}}>
               This is the updated file designed by Prezlab.

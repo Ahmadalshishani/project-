@@ -13,7 +13,6 @@ const Forget = () => {
   const login = () => {
     setErrorMessage("Sorry, Something Went Wrong");
   };
-  console.log(dis);
   return (
     <div
       style={{ display: "flex", justifyContent: "center",  }}

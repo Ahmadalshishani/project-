@@ -2,3 +2,48 @@
     font-weight: 400 !important;
     font-style: normal;
 }
+@media screen and (max-width : 750px) {
+    .page_com{
+        margin-left: 15px !important;
+    }
+.map{
+    margin-left: 15px !important;
+}
+    .page_num{
+        display: none;
+    }
+    .item{
+        display: flex !important;
+        flex-direction: row !important;
+        height: 80vh !important;
+        max-width: 250px !important;
+        width: 100%;
+        position: sticky !important;
+        right: 0px !important;
+        bottom: 125px !important;
+        margin-right: 0;
+        align-items: center;
+      
+    }
+    .tool_button{
+        height: 112px !important;
+        width: 46px !important;
+        p{
+            display: none;
+        }
+        margin-right: 0 !important;
+        border-bottom-left-radius:15px !important ;
+        border-top-right-radius: 0% !important;
+    }
+    .legend{
+        display: flex;
+        flex-direction: column !important;
+        white-space: pre-wrap;
+        border-bottom-left-radius:15px !important ;
+        border-bottom-right-radius: 15px !important;
+    }
+    .circle{
+        width: 15px !important;
+        height: 15px !important;
+    }
+}
