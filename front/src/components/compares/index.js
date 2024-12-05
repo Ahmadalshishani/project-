@@ -291,10 +291,10 @@ function Compares() {
                 />
               </svg>
             </div>
-            <h3
+            <h3 className="page_head"
               style={{
                 maxWidth: "187px",
-                width: "100%",
+                width: "80%",
                 textAlign: "center",
                 fontFamily: "inter",
                 fontSize: "24px",

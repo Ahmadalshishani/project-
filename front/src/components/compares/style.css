@@ -12,6 +12,9 @@
     .page_num{
         display: none;
     }
+    .page_head{
+        width: 0!important;
+    }
     .item{
         display: flex !important;
         flex-direction: row !important;
