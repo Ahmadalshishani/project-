@@ -511,7 +511,8 @@ function Compares() {
                 }}
               >
                 {!dis && (
-                  <svg
+                  <span>
+                  <svg id="up_arrow"
                     width="19"
                     height="18"
                     viewBox="0 0 19 18"
@@ -526,10 +527,15 @@ function Compares() {
                       stroke-linejoin="round"
                     />
                   </svg>
+                  <svg id="right_arrow" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="24" fill="none" viewBox="0 0 24 24" style={{display:"none"}}>
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
+                </svg></span>
+                
                 )}
 
                 {dis && (
-                  <svg
+                  <span>
+                  <svg id="up_arrow"
                     width="19"
                     height="18"
                     viewBox="0 0 19 18"
@@ -544,6 +550,11 @@ function Compares() {
                       stroke-linejoin="round"
                     />
                   </svg>
+                  <svg id="right_arrow" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="24" fill="none" viewBox="0 0 24 24" style={{display:"none"}}>
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+</svg>
+
+                  </span>
                 )}
                 <p style={{ margin: "0px" }}>Tool Legend</p>
               </div>
