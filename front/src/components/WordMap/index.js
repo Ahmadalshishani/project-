@@ -42,7 +42,7 @@ const WordMap = (sentence) => {
         wordArr[wordArrIndex - 1].s + element);
     }
   });
-  
+
   return (
     <div style={{}}>
       {wordArr.map((char, charIndex) => (
@@ -54,8 +54,6 @@ const WordMap = (sentence) => {
             fontWeight: char.b != 0 ? "900" : "400",
             fontStyle: char.i != 0 ? "italic" : "inter",
             textDecoration: char.u != 0 ? "underline" : "none",
-            
-            
           }}
           onPointerOver={() => {
             if (char.m != 0) {
@@ -71,7 +69,7 @@ const WordMap = (sentence) => {
             setDis(null);
           }}
         >
-          {char.s}
+          {char.s}&nbsp;
           {dis && dis.charIndex === charIndex && (
             <span
               className="popup"
