@@ -6,7 +6,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { deleteCompare } from "../reducers/compare";
 import Issues from "../Issues";
 import WordMap from "../WordMap";
-import { CgToggleOff } from "react-icons/cg";
 import Switch from "../../assest/switch";
 import Gear from "../../assest/Gear.js";
 import SettingArr from "../SettingArr/index.js";
