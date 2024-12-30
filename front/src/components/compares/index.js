@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../../pictures/Group 8.png";
 import "./style.css";
@@ -6,6 +6,10 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { deleteCompare } from "../reducers/compare";
 import Issues from "../Issues";
 import WordMap from "../WordMap";
+import { CgToggleOff } from "react-icons/cg";
+import Switch from "../../assest/switch";
+import Gear from "../../assest/Gear.js";
+import SettingArr from "../SettingArr/index.js";
 
 function Compares() {
   const navigate = useNavigate();
@@ -14,6 +18,22 @@ function Compares() {
     compare: state.compare.comparing,
   }));
   const [dis, setDis] = useState(false);
+  const [popup, setPopup] = useState(false);
+  //
+  const [Double, setDouble] = useState(true);
+  const [Content, setContent] = useState(true);
+  const [Formatting, setFormatting] = useState(true);
+  const [Points, setPoints] = useState(true);
+  const [Discrepancies, setDiscrepancies] = useState(true);
+  const [setting, setSetting] = useState({
+    1: true,
+    2: true,
+    3: true,
+    4: true,
+    5: true,
+  });
+  //
+  const [finalArr, setFinalArr] = useState([])
   const username =
     localStorage.getItem("userName") || sessionStorage.getItem("userName");
   const disArray = [
@@ -64,10 +84,10 @@ function Compares() {
     return parsedMask;
   };
 
-  const newMasks = compare?.map((item) =>
+  const newMasks = finalArr?.map((item) =>
     item.new_mask ? parseMask(item.new_mask) : {}
   );
-  const oldMasks = compare?.map((item) =>
+  const oldMasks = finalArr?.map((item) =>
     item.old_mask ? parseMask(item.old_mask) : {}
   );
 
@@ -124,6 +144,28 @@ function Compares() {
       });
     });
   }
+  useEffect(()=>{
+    SettingArr(compare, setting,setFinalArr)
+  },[popup])
+
+  const handleSetting = () => {
+    setting[1] = Content;
+    setting[2] = Formatting;
+    setting[3] = Double;
+    setting[4] = Points;
+    setting[5] = Discrepancies;
+    setPopup(false);
+  
+  };
+  const handleSettingClose = () => {
+    setContent(setting[1]);
+    setFormatting(setting[2]);
+    setDouble(setting[3]);
+    setPoints(setting[4]);
+    setDiscrepancies(setting[5]);
+    setPopup(false);
+  };
+console.log("finalArr",finalArr);
 
   return (
     <>
@@ -163,7 +205,8 @@ function Compares() {
         </p>
         <img id="logo" src={Logo} alt="Company Logo" />
       </header>
-      <div className="page_com"
+      <div
+        className="page_com"
         style={{
           maxWidth: "100rem",
           width: "90%",
@@ -199,7 +242,6 @@ function Compares() {
               fill="black"
             />
           </svg>
-
           <h1
             className="head"
             style={{
@@ -228,7 +270,7 @@ function Compares() {
               marginLeft: "50px",
             }}
           >
-            Number of Issues: <Issues />
+            Number of Issues: {finalArr.length}
           </p>
         </div>
 
@@ -291,7 +333,8 @@ function Compares() {
                 />
               </svg>
             </div>
-            <h3 className="page_head"
+            <h3
+              className="page_head"
               style={{
                 maxWidth: "187px",
                 width: "80%",
@@ -303,7 +346,7 @@ function Compares() {
                 cursor: "default",
               }}
             >
-             <span className="page_num"> Page/Slide</span>
+              <span className="page_num"> Page/Slide</span>
             </h3>
             <div
               style={{
@@ -346,7 +389,7 @@ function Compares() {
             </div>
           </div>
           <div className="box" style={{ maxWidth: "1250px", width: "100%" }}>
-            {compare?.map((element, index) => (
+            {finalArr?.map((element, index) => (
               <div
                 key={index}
                 style={{
@@ -380,6 +423,7 @@ function Compares() {
                     bold={element.old_bold}
                     italic={element.old_italic}
                     underline={element.old_underline}
+                    setting={setting}
                   />
                 </div>
 
@@ -457,6 +501,7 @@ function Compares() {
                     bold={element.new_bold}
                     italic={element.new_italic}
                     underline={element.new_underline}
+                    setting={setting}
                   />
                 </div>
               </div>
@@ -494,7 +539,8 @@ function Compares() {
                     }
               }
             >
-              <div className="tool_button"
+              <div
+                className="tool_button"
                 style={{
                   width: "112px",
                   height: "46px",
@@ -512,54 +558,88 @@ function Compares() {
               >
                 {!dis && (
                   <span>
-                  <svg id="up_arrow"
-                    width="19"
-                    height="18"
-                    viewBox="0 0 19 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.625 6.75L9.125 11.25L4.625 6.75"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg id="right_arrow" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="24" fill="none" viewBox="0 0 24 24" style={{display:"none"}}>
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
-                </svg></span>
-                
+                    <svg
+                      id="up_arrow"
+                      width="19"
+                      height="18"
+                      viewBox="0 0 19 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.625 6.75L9.125 11.25L4.625 6.75"
+                        stroke="black"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <svg
+                      id="right_arrow"
+                      class="w-6 h-6 text-gray-800 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      style={{ display: "none" }}
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m15 19-7-7 7-7"
+                      />
+                    </svg>
+                  </span>
                 )}
 
                 {dis && (
                   <span>
-                  <svg id="up_arrow"
-                    width="19"
-                    height="18"
-                    viewBox="0 0 19 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.375 11.25L9.875 6.75L14.375 11.25"
-                      stroke="black"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg id="right_arrow" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="24" fill="none" viewBox="0 0 24 24" style={{display:"none"}}>
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-</svg>
-
+                    <svg
+                      id="up_arrow"
+                      width="19"
+                      height="18"
+                      viewBox="0 0 19 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.375 11.25L9.875 6.75L14.375 11.25"
+                        stroke="black"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <svg
+                      id="right_arrow"
+                      class="w-6 h-6 text-gray-800 dark:text-white"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="24"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      style={{ display: "none" }}
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m9 5 7 7-7 7"
+                      />
+                    </svg>
                   </span>
                 )}
                 <p style={{ margin: "0px" }}>Tool Legend</p>
               </div>
               {dis && (
-                <div className="legend"
+                <div
+                  className="legend"
                   style={{
                     display: "flex",
                     justifyContent: "space-evenly",
@@ -573,7 +653,8 @@ function Compares() {
                   {disArray.map((element, index) => {
                     const { color, text, shade } = element;
                     return (
-                      <div className="tool"
+                      <div
+                        className="tool"
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -582,7 +663,8 @@ function Compares() {
                         }}
                       >
                         {" "}
-                        <div className ="circle"
+                        <div
+                          className="circle"
                           key={index}
                           style={{
                             maxWidth: "20px",
@@ -612,6 +694,255 @@ function Compares() {
                       </div>
                     );
                   })}
+                </div>
+              )}
+              <div
+                style={{
+                  height: "44px",
+                  width: "44px",
+                  backgroundColor: "#E5E2E2",
+                  position: "absolute",
+                  top: "5px",
+                  right: "25px",
+                  borderTopRightRadius: "10px",
+                  borderTopLeftRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                onClick={() => {
+                  setPopup(true);
+                }}
+              >
+                <Gear />
+              </div>
+              {popup && (
+                <div
+                  style={{
+                    position: "fixed",
+                    left: "0px",
+                    top: "0px",
+                    height: "100vh",
+                    width: "100vw",
+                    backgroundColor: "rgba(0,0,0, 0.4 )",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "default",
+                  }}
+                >
+                  <div
+                    style={{
+                      maxWidth: "475px",
+                      width: "100%",
+                      maxHeight: "364px",
+                      height: "100%",
+                      backgroundColor: "white",
+                      borderRadius: "15px",
+                      // paddingTop: "20px",
+                      // paddingLeft: "32px",
+                      // paddingRight: "32px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        maxWidth: "411px",
+                        width: "100%",
+                        maxHeight: "29px",
+                        height: "100%",
+                        marginTop: "20px",
+                        marginLeft: "32px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontFamily: "inter",
+                          fontSize: "24px",
+                          fontWeight: "700",
+                          margin: "0",
+                        }}
+                      >
+                        Settings
+                      </p>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        onClick={() => {
+                          handleSettingClose();
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <path
+                          d="M6 18L18 6M6 6L18 18"
+                          stroke="black"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      style={{
+                        maxWidth: "411px",
+                        width: "100%",
+                        maxHeight: "196px",
+                        height: "100%",
+                        padding: "0px",
+                        marginTop: "32px",
+                        marginLeft: "32px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          height: "20px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "inter",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            margin: "0",
+                          }}
+                        >
+                          Show Double Spacing
+                        </p>
+                        <Switch
+                          onValueChange={(e) => {
+                            setDouble(e);
+                          }}
+                          value={setting[3]}
+                        />{" "}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginTop: "22px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "inter",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            margin: "0",
+                          }}
+                        >
+                          Show Content Error
+                        </p>
+                        <Switch
+                          onValueChange={(e) => {
+                            setContent(e);
+                          }}
+                          value={setting[1]}
+                        />{" "}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginTop: "22px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "inter",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            margin: "0",
+                          }}
+                        >
+                          Show Formatting Issues
+                        </p>
+                        <Switch
+                          onValueChange={(e) => {
+                            setFormatting(e);
+                          }}
+                          value={setting[2]}
+                        />{" "}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginTop: "22px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "inter",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            margin: "0",
+                          }}
+                        >
+                          Show Points Inconsistencies
+                        </p>
+                        <Switch
+                          onValueChange={(e) => {
+                            setPoints(e);
+                          }}
+                          value={setting[4]}
+                        />{" "}
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginTop: "22px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "inter",
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            margin: "0",
+                          }}
+                        >
+                          Show Uppercase/Lowercase Discrepancies
+                        </p>
+                        <Switch
+                          onValueChange={(e) => {
+                            setDiscrepancies(e);
+                          }}
+                          value={setting[5]}
+                        />{" "}
+                      </div>
+                    </div>
+                    <button
+                      style={{
+                        maxWidth: "404px",
+                        width: "100%",
+                        height: "32px",
+                        backgroundColor: "#2B1B4C",
+                        fontFamily: "inter",
+                        fontSize: "14px",
+                        fontWeight: "700",
+                        color: "white",
+                        borderRadius: "5px",
+                        marginLeft: "35.5px",
+                        marginTop: "32px",
+                      }}
+                      onClick={handleSetting}
+                    >
+                      Save
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

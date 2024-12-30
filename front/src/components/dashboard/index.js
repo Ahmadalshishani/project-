@@ -43,7 +43,11 @@ const Dashboard = () => {
     const formData = new FormData();
     formData.append("old_doc", originalFile);
     formData.append("new_doc", designFile);
-
+    formData.append("content",true)
+    formData.append("style",true)
+    formData.append("space",true)
+    formData.append("bullet",true)
+    formData.append("case",true)
     try {
       const response = await fetch(`${baseUrl}/compare`, {
         method: "POST",

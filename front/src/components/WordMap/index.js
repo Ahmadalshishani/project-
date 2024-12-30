@@ -25,6 +25,7 @@ const WordMap = (sentence) => {
   const boldArr = sentence.bold.split("");
   const italicArr = sentence.italic.split("");
   const underlineArr = sentence.underline.split("");
+  const setting = sentence.setting;
 
   stringArr.map((element, index) => {
     if (maskArr[index] !== oldNum) {
@@ -49,14 +50,16 @@ const WordMap = (sentence) => {
         <span
           style={{
             position: "relative",
-            backgroundColor: colorMap[char.m] || "white",
+            backgroundColor: setting[char.m]
+              ? colorMap[char.m]
+              : "white" || "white",
             cursor: char.m != 0 ? "pointer" : "default",
             fontWeight: char.b != 0 ? "900" : "400",
             fontStyle: char.i != 0 ? "italic" : "inter",
             textDecoration: char.u != 0 ? "underline" : "none",
           }}
           onPointerOver={() => {
-            if (char.m != 0) {
+            if (char.m != 0 && setting[char.m]) {
               setDis({
                 char: char,
                 charIndex: charIndex,
