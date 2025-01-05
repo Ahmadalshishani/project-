@@ -32,7 +32,7 @@ function Compares() {
     5: true,
   });
   //
-  const [finalArr, setFinalArr] = useState([])
+  const [finalArr, setFinalArr] = useState([]);
   const username =
     localStorage.getItem("userName") || sessionStorage.getItem("userName");
   const disArray = [
@@ -143,9 +143,9 @@ function Compares() {
       });
     });
   }
-  useEffect(()=>{
-    SettingArr(compare, setting,setFinalArr)
-  },[popup])
+  useEffect(() => {
+    SettingArr(compare, setting, setFinalArr);
+  }, [popup]);
 
   const handleSetting = () => {
     setting[1] = Content;
@@ -154,7 +154,6 @@ function Compares() {
     setting[4] = Points;
     setting[5] = Discrepancies;
     setPopup(false);
-  
   };
   const handleSettingClose = () => {
     setContent(setting[1]);
@@ -164,7 +163,7 @@ function Compares() {
     setDiscrepancies(setting[5]);
     setPopup(false);
   };
-console.log("finalArr",finalArr);
+  console.log("finalArr", finalArr);
 
   return (
     <>
@@ -284,6 +283,7 @@ console.log("finalArr",finalArr);
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            height: "100vh",
           }}
         >
           <div
@@ -387,14 +387,23 @@ console.log("finalArr",finalArr);
               </svg>
             </div>
           </div>
-          <div className="box" style={{ maxWidth: "1250px", width: "100%" }}>
+          <div
+            className="box"
+            style={{
+              maxWidth: "1250px",
+              width: "100%",
+              minHeight: "85vh",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             {finalArr?.map((element, index) => (
               <div
                 key={index}
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  position: "relative",
                 }}
               >
                 {/* Old File Mapping */}
@@ -520,8 +529,10 @@ console.log("finalArr",finalArr);
                       width: "100%",
                       position: "sticky",
                       bottom: "0px",
+                      left: "0px",
                       cursor: "pointer",
                       zIndex: 2,
+                      marginTop: "auto",
                     }
                   : {
                       display: "flex",
@@ -535,6 +546,7 @@ console.log("finalArr",finalArr);
                       left: "0",
                       cursor: "pointer",
                       zIndex: "2",
+                      marginTop: "auto",
                     }
               }
             >
