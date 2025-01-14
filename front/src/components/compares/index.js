@@ -283,21 +283,26 @@ function Compares() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            height: "100vh",
+            height: "100%",
           }}
         >
           <div
             style={{
               display: "flex",
               maxWidth: "1250px",
-              width: "90%",
+              width: "100%",
+              position:"sticky",
+              top:"0px",
+              backgroundColor:"white",
+              zIndex:"2"
             }}
           >
             <div
               style={{
                 maxWidth: "531.5px",
                 width: "88%",
-                borderRight: "0.5px solid #8b8b8b",
+                borderRight: "solid 0.5px",
+                borderRightColor:"black",
                 marginTop: "32px",
                 display: "flex",
                 flexDirection: "column",
