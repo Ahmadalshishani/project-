@@ -302,7 +302,7 @@ function Compares() {
                 maxWidth: "531.5px",
                 width: "88%",
                 borderRight: "solid 0.5px",
-                borderRightColor:"black",
+                borderRightColor:"8b8b8b",
                 marginTop: "32px",
                 display: "flex",
                 flexDirection: "column",
